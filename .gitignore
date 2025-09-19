@@ -1,0 +1,21 @@
+# Entorno virtual
+env311/
+blog_backup.sql
+Readme.md
+
+# Archivos Python compilados
+__pycache__/
+*.py[cod]
+
+# Base de datos local
+db.sqlite3
+
+# Archivos de entorno
+.env
+
+# Archivos de logs
+*.log
+
+# Archivos estáticos generados
+/staticfiles/
+/media/
