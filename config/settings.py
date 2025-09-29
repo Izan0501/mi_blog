@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -104,9 +105,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/mi_blog/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
+MEDIA_ROOT = os.path.join(BASE_DIR, '')
+MEDIA_URL = '/images/'
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
