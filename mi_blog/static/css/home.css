@@ -683,7 +683,6 @@
 
   /* MAIN ENDS */
 
-
   /* FOOTER */
   footer {
       display: flex;
@@ -741,7 +740,6 @@
       }
   }
 
-  /* Logo */
   .footer-logo {
       font-size: 1.8rem;
       font-weight: 700;
@@ -787,7 +785,6 @@
       box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
   }
 
-  /* Botón */
   .btn-newsletter {
       background-image: linear-gradient(135deg, #00eaff, #0077ff, #00eaff);
       background-size: 200%;
@@ -812,7 +809,6 @@
       box-shadow: 0 0 16px rgba(0, 255, 255, 0.6);
   }
 
-  /* Links */
   .footer-links {
       list-style: none;
       display: flex;
@@ -836,7 +832,6 @@
       text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
   }
 
-  /* Redes sociales */
   .footer-socials {
       display: flex;
       justify-content: center;
@@ -856,7 +851,6 @@
       text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
   }
 
-  /* Grupo de input con icono */
   .input-group {
       position: relative;
       display: flex;
@@ -876,7 +870,6 @@
   .input-group input {
       width: 100%;
       padding: 0.8rem 1rem 0.8rem 2.5rem;
-      /* espacio para el icono */
       border-radius: 12px;
       border: none;
       outline: none;
@@ -896,11 +889,8 @@
       box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
   }
 
-  /* Copy */
   .footer-copy {
       font-size: 0.85rem;
       opacity: 0.75;
   }
-
-
   /* FOOTER ENDS */
