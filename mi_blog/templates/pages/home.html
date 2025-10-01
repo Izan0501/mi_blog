@@ -4,127 +4,416 @@
 {% block title %} Inicio {% endblock %}
 
 {% block content %}
-<section class="topics" id="topics" aria-labelledby="topic-label">
-    <div class="container">
+<article>
+    <!-- TopicSection -->
+    <section class="topics" id="topics" aria-labelledby="topic-label">
+        <div class="container">
+            <div class="card topic-card">
 
-        <div class="card topic-card">
+                <div class="card-content">
 
-            <div class="card-content">
+                    <h2 class="headline headline-2 section-title card-title" id="topic-label">
+                        Hot topics
+                    </h2>
 
-                <h2 class="headline headline-2 section-title card-title" id="topic-label">
-                    Hot topics
-                </h2>
+                    <p class="card-text">
+                        Don't miss out on the latest news about Travel tips, Hotels review, Food guide...
+                    </p>
 
-                <p class="card-text">
-                    Don't miss out on the latest news about Travel tips, Hotels review, Food guide...
-                </p>
+                    <div class="btn-group">
+                        <button class="btn-icon" aria-label="previous" data-slider-prev>
+                            <ion-icon name="arrow-back" aria-hidden="true"></ion-icon>
+                        </button>
 
-                <div class="btn-group">
-                    <button class="btn-icon" aria-label="previous" data-slider-prev>
-                        <ion-icon name="arrow-back" aria-hidden="true"></ion-icon>
-                    </button>
+                        <button class="btn-icon" aria-label="next" data-slider-next>
+                            <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                        </button>
+                    </div>
 
-                    <button class="btn-icon" aria-label="next" data-slider-next>
-                        <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
-                    </button>
+                </div>
+
+                <div class="slider" data-slider>
+                    <ul class="slider-list" data-slider-container>
+
+                        <li class="slider-item">
+                            <a href="#" class="slider-card">
+
+                                <figure class="slider-banner img-holder" style="--width: 507; --height: 618;">
+                                    <img src="{% static 'images/topic-1.jpg' %}" width="507" height="618" loading="lazy"
+                                        alt="Sport" class="img-cover">
+                                </figure>
+
+                                <div class="slider-content">
+                                    <span class="slider-title">Relax</span>
+
+                                    <p class="slider-subtitle">38 Articles</p>
+                                </div>
+
+                            </a>
+                        </li>
+
+                        <li class="slider-item">
+                            <a href="#" class="slider-card">
+
+                                <figure class="slider-banner img-holder" style="--width: 507; --height: 618;">
+                                    <img src="{% static 'images/topic-2.jpeg' %}" width="507" height="618"
+                                        loading="lazy" alt="Travel" class="img-cover">
+                                </figure>
+
+                                <div class="slider-content">
+                                    <span class="slider-title">Travel</span>
+
+                                    <p class="slider-subtitle">63 Articles</p>
+                                </div>
+
+                            </a>
+                        </li>
+
+                        <li class="slider-item">
+                            <a href="#" class="slider-card">
+
+                                <figure class="slider-banner img-holder" style="--width: 507; --height: 618;">
+                                    <img src="{% static 'images/topic-3.jpeg' %}" width="507" height="618"
+                                        loading="lazy" alt="Design" class="img-cover">
+                                </figure>
+
+                                <div class="slider-content">
+                                    <span class="slider-title">Design</span>
+
+                                    <p class="slider-subtitle">78 Articles</p>
+                                </div>
+
+                            </a>
+                        </li>
+
+                        <li class="slider-item">
+                            <a href="#" class="slider-card">
+
+                                <figure class="slider-banner img-holder" style="--width: 507; --height: 618;">
+                                    <img src="{% static 'images/topic-4.jpeg' %}" width="507" height="618"
+                                        loading="lazy" alt="Movie" class="img-cover">
+                                </figure>
+
+                                <div class="slider-content">
+                                    <span class="slider-title">Net-Working</span>
+
+                                    <p class="slider-subtitle">125 Articles</p>
+                                </div>
+
+                            </a>
+                        </li>
+
+                        <li class="slider-item">
+                            <a href="#" class="slider-card">
+
+                                <figure class="slider-banner img-holder" style="--width: 507; --height: 618;">
+                                    <img src="{% static 'images/topic-5.jpg' %}"" width=" 507" height="618"
+                                        loading="lazy" alt="Lifestyle" class="img-cover">
+                                </figure>
+
+                                <div class="slider-content">
+                                    <span class="slider-title">Lifestyle</span>
+
+                                    <p class="slider-subtitle">78 Articles</p>
+                                </div>
+
+                            </a>
+                        </li>
+
+                    </ul>
                 </div>
 
             </div>
+        </div>
+    </section>
+    <!-- TopicSectionEnds -->
 
-            <div class="slider" data-slider>
-                <ul class="slider-list" data-slider-container>
+    <!-- FeaturedSection -->
+    <section class="section feature" aria-label="feature" id="featured">
+        <div class="container">
 
-                    <li class="slider-item">
-                        <a href="#" class="slider-card">
+            <h2 class="headline headline-2 section-title">
+                <span class="span">Editor's picked</span>
+            </h2>
 
-                            <figure class="slider-banner img-holder" style="--width: 507; --height: 618;">
-                                <img src="{% static 'images/topic-1.jpg' %}" width="507" height="618" loading="lazy"
-                                    alt="Sport" class="img-cover">
-                            </figure>
+            <p class="section-text">
+                Featured and highly rated articles
+            </p>
 
-                            <div class="slider-content">
-                                <span class="slider-title">Relax</span>
+            <ul class="feature-list">
 
-                                <p class="slider-subtitle">38 Articles</p>
+                <li>
+                    <div class="card feature-card">
+
+                        <figure class="card-banner img-holder" style="--width: 1602; --height: 903;">
+                            <img src="{% static 'images/featured-1.png' %}" width="1602" height="903" loading="lazy"
+                                alt="Self-observation is the first step of inner unfolding" class="img-cover">
+                        </figure>
+
+                        <div class="card-content">
+
+                            <div class="card-wrapper">
+                                <div class="card-tag">
+                                    <a href="#" class="span hover-2">#Travel</a>
+
+                                    <a href="#" class="span hover-2">#Lifestyle</a>
+                                </div>
+
+                                <div class="wrapper">
+                                    <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+
+                                    <span class="span">3 mins read</span>
+                                </div>
                             </div>
 
-                        </a>
-                    </li>
+                            <h3 class="headline headline-3">
+                                <a href="#" class="card-title hover-2">
+                                    Self-observation is the first step of inner unfolding
+                                </a>
+                            </h3>
 
-                    <li class="slider-item">
-                        <a href="#" class="slider-card">
+                            <div class="card-wrapper">
 
-                            <figure class="slider-banner img-holder" style="--width: 507; --height: 618;">
-                                <img src="{% static 'images/topic-2.jpeg' %}" width="507" height="618" loading="lazy"
-                                    alt="Travel" class="img-cover">
-                            </figure>
+                                <div class="profile-card">
+                                    <img src="{% static 'images/author-1.png' %}" width="48" height="48" loading="lazy"
+                                        alt="Joseph" class="profile-banner">
 
-                            <div class="slider-content">
-                                <span class="slider-title">Travel</span>
+                                    <div>
+                                        <p class="card-title">Joseph</p>
 
-                                <p class="slider-subtitle">63 Articles</p>
+                                        <p class="card-subtitle">25 Nov 2022</p>
+                                    </div>
+                                </div>
+
+                                <a href="#" class="card-btn">Read more</a>
+
                             </div>
 
-                        </a>
-                    </li>
+                        </div>
 
-                    <li class="slider-item">
-                        <a href="#" class="slider-card">
+                    </div>
+                </li>
 
-                            <figure class="slider-banner img-holder" style="--width: 507; --height: 618;">
-                                <img src="{% static 'images/topic-3.jpeg' %}" width="507" height="618" loading="lazy"
-                                    alt="Design" class="img-cover">
-                            </figure>
+                <li>
+                    <div class="card feature-card">
 
-                            <div class="slider-content">
-                                <span class="slider-title">Design</span>
+                        <figure class="card-banner img-holder" style="--width: 1602; --height: 903;">
+                            <img src="{% static 'images/featured-2.png' %}" width="1602" height="903" loading="lazy"
+                                alt="Self-observation is the first step of inner unfolding" class="img-cover">
+                        </figure>
 
-                                <p class="slider-subtitle">78 Articles</p>
+                        <div class="card-content">
+
+                            <div class="card-wrapper">
+                                <div class="card-tag">
+                                    <a href="#" class="span hover-2">#Design</a>
+
+                                    <a href="#" class="span hover-2">#Movie</a>
+                                </div>
+
+                                <div class="wrapper">
+                                    <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+
+                                    <span class="span">6 mins read</span>
+                                </div>
                             </div>
 
-                        </a>
-                    </li>
+                            <h3 class="headline headline-3">
+                                <a href="#" class="card-title hover-2">
+                                    Self-observation is the first step of inner unfolding
+                                </a>
+                            </h3>
 
-                    <li class="slider-item">
-                        <a href="#" class="slider-card">
+                            <div class="card-wrapper">
 
-                            <figure class="slider-banner img-holder" style="--width: 507; --height: 618;">
-                                <img src="{% static 'images/topic-4.jpeg' %}" width="507" height="618" loading="lazy"
-                                    alt="Movie" class="img-cover">
-                            </figure>
+                                <div class="profile-card">
+                                    <img src="{% static 'images/author-1.png' %}" width="48" height="48" loading="lazy"
+                                        alt="Joseph" class="profile-banner">
 
-                            <div class="slider-content">
-                                <span class="slider-title">Net-Working</span>
+                                    <div>
+                                        <p class="card-title">Joseph</p>
 
-                                <p class="slider-subtitle">125 Articles</p>
+                                        <p class="card-subtitle">25 Nov 2022</p>
+                                    </div>
+                                </div>
+
+                                <a href="#" class="card-btn">Read more</a>
+
                             </div>
 
-                        </a>
-                    </li>
+                        </div>
 
-                    <li class="slider-item">
-                        <a href="#" class="slider-card">
+                    </div>
+                </li>
 
-                            <figure class="slider-banner img-holder" style="--width: 507; --height: 618;">
-                                <img src="{% static 'images/topic-5.jpg' %}"" width="507" height="618" loading="lazy"
-                                    alt="Lifestyle" class="img-cover">
-                            </figure>
+                <li>
+                    <div class="card feature-card">
 
-                            <div class="slider-content">
-                                <span class="slider-title">Lifestyle</span>
+                        <figure class="card-banner img-holder" style="--width: 1602; --height: 903;">
+                            <img src="{% static 'images/featured-3.png' %}" width="1602" height="903" loading="lazy"
+                                alt="Self-observation is the first step of inner unfolding" class="img-cover">
+                        </figure>
 
-                                <p class="slider-subtitle">78 Articles</p>
+                        <div class="card-content">
+
+                            <div class="card-wrapper">
+                                <div class="card-tag">
+                                    <a href="#" class="span hover-2">#Design</a>
+
+                                    <a href="#" class="span hover-2">#Movie</a>
+                                </div>
+
+                                <div class="wrapper">
+                                    <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+
+                                    <span class="span">6 mins read</span>
+                                </div>
                             </div>
 
-                        </a>
-                    </li>
+                            <h3 class="headline headline-3">
+                                <a href="#" class="card-title hover-2">
+                                    Self-observation is the first step of inner unfolding
+                                </a>
+                            </h3>
 
-                </ul>
-            </div>
+                            <div class="card-wrapper">
+
+                                <div class="profile-card">
+                                    <img src="{% static 'images/author-1.png' %}" width="48" height="48" loading="lazy"
+                                        alt="Joseph" class="profile-banner">
+
+                                    <div>
+                                        <p class="card-title">Joseph</p>
+
+                                        <p class="card-subtitle">25 Nov 2022</p>
+                                    </div>
+                                </div>
+
+                                <a href="#" class="card-btn">Read more</a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </li>
+
+                <li>
+                    <div class="card feature-card">
+
+                        <figure class="card-banner img-holder" style="--width: 1602; --height: 903;">
+                            <img src="{% static 'images/featured-4.png' %}" width="1602" height="903" loading="lazy"
+                                alt="Self-observation is the first step of inner unfolding" class="img-cover">
+                        </figure>
+
+                        <div class="card-content">
+
+                            <div class="card-wrapper">
+                                <div class="card-tag">
+                                    <a href="#" class="span hover-2">#Design</a>
+
+                                    <a href="#" class="span hover-2">#Movie</a>
+                                </div>
+
+                                <div class="wrapper">
+                                    <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+
+                                    <span class="span">6 mins read</span>
+                                </div>
+                            </div>
+
+                            <h3 class="headline headline-3">
+                                <a href="#" class="card-title hover-2">
+                                    Self-observation is the first step of inner unfolding
+                                </a>
+                            </h3>
+
+                            <div class="card-wrapper">
+
+                                <div class="profile-card">
+                                    <img src="{% static 'images/author-1.png' %}" width="48" height="48" loading="lazy"
+                                        alt="Joseph" class="profile-banner">
+
+                                    <div>
+                                        <p class="card-title">Joseph</p>
+
+                                        <p class="card-subtitle">25 Nov 2022</p>
+                                    </div>
+                                </div>
+
+                                <a href="#" class="card-btn">Read more</a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </li>
+
+                <li>
+                    <div class="card feature-card">
+
+                        <figure class="card-banner img-holder" style="--width: 1602; --height: 903;">
+                            <img src="{% static 'images/featured-5.png' %}" width="1602" height="903" loading="lazy"
+                                alt="Self-observation is the first step of inner unfolding" class="img-cover">
+                        </figure>
+
+                        <div class="card-content">
+
+                            <div class="card-wrapper">
+                                <div class="card-tag">
+                                    <a href="#" class="span hover-2">#Design</a>
+
+                                    <a href="#" class="span hover-2">#Movie</a>
+                                </div>
+
+                                <div class="wrapper">
+                                    <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+
+                                    <span class="span">6 mins read</span>
+                                </div>
+                            </div>
+
+                            <h3 class="headline headline-3">
+                                <a href="#" class="card-title hover-2">
+                                    Self-observation is the first step of inner unfolding
+                                </a>
+                            </h3>
+
+                            <div class="card-wrapper">
+
+                                <div class="profile-card">
+                                    <img src="{% static 'images/author-1.png' %}" width="48" height="48" loading="lazy"
+                                        alt="Joseph" class="profile-banner">
+
+                                    <div>
+                                        <p class="card-title">Joseph</p>
+
+                                        <p class="card-subtitle">25 Nov 2022</p>
+                                    </div>
+                                </div>
+
+                                <a href="#" class="card-btn">Read more</a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </li>
+
+            </ul>
+
+            <a href="#" class="btn btn-secondary">
+                <span class="span">Show More Posts</span>
+
+                <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+            </a>
 
         </div>
 
-    </div>
-</section>
+    </section>
+    <!-- FeaturedSectionEnds -->
 
+</article>
 {% endblock %}

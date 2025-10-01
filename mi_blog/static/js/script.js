@@ -1,3 +1,13 @@
+// HEADER NAVBAR
+const hamburger = document.querySelector(".hamburger");
+const navLinks = document.querySelector(".nav-links");
+
+hamburger.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+    hamburger.classList.toggle("open");
+});
+
+// Main Slider
 const slider = document.querySelector("[data-slider]");
 const sliderContainer = document.querySelector("[data-slider-container]");
 const sliderPrevBtn = document.querySelector("[data-slider-prev]");
@@ -13,10 +23,10 @@ const moveSliderItem = () => {
 }
 
 // Next Slide
-const slideNext = () => { 
+const slideNext = () => {
     const slideEnd = currentSlidePos >= totalSlidableItems;
 
-    if(slideEnd) {
+    if (slideEnd) {
         currentSlidePos = 0;
     } else {
         currentSlidePos++;
@@ -28,8 +38,8 @@ const slideNext = () => {
 sliderNextBtn.addEventListener("click", slideNext);
 
 // Previous Slide
-const slidePrev = () => { 
-    if(currentSlidePos <= 0) {
+const slidePrev = () => {
+    if (currentSlidePos <= 0) {
         currentSlidePos = totalSlidableItems;
     } else {
         currentSlidePos--;
@@ -44,6 +54,6 @@ sliderPrevBtn.addEventListener("click", slidePrev);
 window.addEventListener("resize", () => {
     totalSliderVisibleItems = Number(getComputedStyle(slider).getPropertyValue("--slider-items"));
     totalSlidableItems = sliderContainer.childElementCount - totalSliderVisibleItems;
-    
+
     moveSliderItem();
 });
