@@ -415,5 +415,63 @@
     </section>
     <!-- FeaturedSectionEnds -->
 
+
+    <!-- TagSection -->
+    <section class="tags" aria-labelledby="tag-label">
+        <div class="container">
+
+            <h2 class="headline headline-2 section-title" id="tag-label">
+                <span class="span">Popular Tags</span>
+            </h2>
+
+            <p class="section-text">
+                Most searched keywords
+            </p>
+
+            <ul class="grid-list">
+
+                <li>
+                    <button class="card tag-btn">
+                        <img src="{% static 'images/tag1.png'%}" width="32" height="32" loading="lazy" alt="Travel">
+
+                        <p class="btn-text">Travel</p>
+                    </button>
+                </li>
+
+                <li>
+                    <button class="card tag-btn">
+                        <img src="{% static 'images/tag2.png'%}" width="32" height="32" loading="lazy" alt="Culture">
+
+                        <p class="btn-text">Culture</p>
+                    </button>
+                </li>
+
+                <li>
+                    <button class="card tag-btn">
+                        <img src="{% static 'images/tag3.png'%}" width="32" height="32" loading="lazy" alt="Lifestyle">
+
+                        <p class="btn-text">Lifestyle</p>
+                    </button>
+                </li>
+
+                <li>
+                    <button class="card tag-btn">
+                        <img src="{% static 'images/tag4.png'%}" width="32" height="32" loading="lazy" alt="Fashion">
+
+                        <p class="btn-text">Fashion</p>
+                    </button>
+                </li>
+
+                <li>
+                    <button class="card tag-btn">
+                        <img src="{% static 'images/tag5.png'%}" width="32" height="32" loading="lazy" alt="Food">
+
+                        <p class="btn-text">Food</p>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <!-- TagSectionEnds -->
 </article>
 {% endblock %}
