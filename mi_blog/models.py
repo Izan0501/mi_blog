@@ -15,14 +15,17 @@ class Rol(models.Model):
     
 # =========================
 # 2. Usuarios
+from django.db import models
+
 class Usuario(models.Model):
     id_usuario = models.AutoField(primary_key=True)
     nombre_usuario = models.CharField(max_length=50, unique=True)
     email = models.EmailField(max_length=100, unique=True)
     contrasena_hash = models.CharField(max_length=255)
     fecha_registro = models.DateTimeField(auto_now_add=True)
-    rol = models.ForeignKey(Rol, on_delete=models.RESTRICT, db_column='id_rol')
+    rol = models.ForeignKey('Rol', on_delete=models.RESTRICT, db_column='id_rol')
     activo = models.BooleanField(default=True)
+    imagen_perfil = models.ImageField(upload_to='profiles/', null=True, blank=True, db_column='imagen_perfil')
 
     class Meta:
         managed = False
@@ -30,6 +33,11 @@ class Usuario(models.Model):
 
     def __str__(self):
         return self.nombre_usuario
+    
+    def delete(self, using=None, keep_parents=False):
+        if self.imagen_perfil:
+            self.imagen_perfil.storage.delete(self.imagen_perfil.name)
+        super().delete(using=using, keep_parents=keep_parents)
 
 
 # =========================
@@ -53,7 +61,7 @@ class Articulo(models.Model):
     id_articulo = models.AutoField(primary_key=True)
     titulo = models.CharField(max_length=255)
     contenido = models.TextField()
-    imagen_portada = models.ImageField(upload_to='articulos/', null=True, blank=True)  # 👈 agregado
+    imagen_portada = models.ImageField(upload_to='articles/', null=True, blank=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
     publicado = models.BooleanField(default=False)

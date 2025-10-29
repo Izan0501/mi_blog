@@ -110,8 +110,8 @@ STATIC_URL = '/mi_blog/static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
-MEDIA_ROOT = os.path.join(BASE_DIR, '')
-MEDIA_URL = '/images/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
