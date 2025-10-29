@@ -13,6 +13,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Custom User Model
+AUTH_USER_MODEL = 'mi_blog.CustomUser'
 
 # Application definition
 
@@ -62,7 +64,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': config('DB_NAME', default='mi_blog_db'),
+        'NAME': config('DB_NAME', default='blog_db'),
         'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASSWORD'),
         'HOST': config('DB_HOST', default='localhost'),
