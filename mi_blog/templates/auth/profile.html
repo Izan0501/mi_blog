@@ -1,0 +1,42 @@
+{% extends "pages/base.html" %}
+{% load static %}
+{% block title %} Perfil {% endblock %}
+{% block content %}
+
+<!-- Mensajes -->
+{% if messages %}
+<div class="messages-container">
+    {% for message in messages %}
+    <div class="message {{ message.tags }}">
+        {{ message }}
+        <button class="close-btn" onclick="this.parentElement.style.display='none'">&times;</button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- Perfil -->
+<div class="profile-container">
+    <h2>Mi Perfil</h2>
+
+    <div class="profile-image">
+        {% if user.imagen_perfil %}
+        <img src="{{ user.imagen_perfil.url }}" alt="Imagen de perfil">
+        {% else %}
+        <img src="{% static 'images/default-profile.png' %}" alt="Sin imagen">
+        {% endif %}
+    </div>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar cambios</button>
+    </form>
+
+    <div class="logout-link">
+        <a href="{% url 'logout' %}">Cerrar sesión</a>
+    </div>
+</div>
+{% endblock %}
+
+</html>

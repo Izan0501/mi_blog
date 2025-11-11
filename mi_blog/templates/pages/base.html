@@ -9,11 +9,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
 </head>
 
 <body>
@@ -25,10 +27,24 @@
 
 
             <ul class="nav-links">
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Servicios</a></li>
-                <li><a href="#">Proyectos</a></li>
-                <li><a href="#">Contacto</a></li>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'home' %}#publicar">Publicar</a></li>
+                <li><a href="#">Buscar</a></li>
+                {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'profile' %}" class="nav-user">
+                        {% if user.imagen_perfil %}
+                        <img src="{{ user.imagen_perfil.url }}" alt="Perfil" class="nav-avatar">
+                        {% else %}
+                        <img src="{% static 'images/default-profile.png' %}" alt="Perfil" class="nav-avatar">
+                        {% endif %}
+                        <span>{{ user.username }}</span>
+                    </a>
+                </li>
+                {% else %}
+                <li><a href="{% url 'login' %}">Iniciar sesión</a></li>
+                {% endif %}
+
             </ul>
 
             <div class="hamburger">

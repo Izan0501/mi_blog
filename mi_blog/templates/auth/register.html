@@ -1,10 +1,40 @@
-{% extends "pages/base.html" %}
-{% block title %}Registro{% endblock %}
-{% block content %}
-<h2>Crear cuenta</h2>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Registrarse</button>
-</form>
-{% endblock %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}" />
+    <title>Crear cuenta</title>
+</head>
+
+<body>
+    <!-- Mensajes -->
+    {% if messages %}
+    <div class="messages-container">
+        {% for message in messages %}
+        <div class="message {{ message.tags }}">
+            {{ message }}
+            <button class="close-btn" onclick="this.parentElement.style.display='none'">&times;</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Formulario -->
+    <div class="form-container">
+        <h2>Crear cuenta</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Registrarse</button>
+            <p class="login-link">
+                ¿Ya tienes una cuenta?
+                <a href="{% url 'login' %}">Inicia sesión aquí</a>
+            </p>
+        </form>
+    </div>
+</body>
+
+</html>
