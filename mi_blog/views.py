@@ -16,7 +16,7 @@ def home(request):
             articulo.autor = request.user
             articulo.publicado = True
             articulo.save()
-            form = ArticuloForm() 
+            return redirect('home')
     articulos = Articulo.objects.filter(publicado=True).order_by('-fecha_creacion') 
     return render(request, 'pages/home.html', {'form': form, 'articulos': articulos})
 

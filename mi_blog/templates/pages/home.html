@@ -295,41 +295,39 @@
 
                 <ul class="grid-list">
 
+                    {% for articulo in articulos %}
                     <li>
                         <div class="recent-post-card">
 
+                            {% if articulo.imagen_portada %}
                             <figure class="card-banner img-holder" style="--width: 271; --height: 258;">
-                                <img src="{% static 'images/recent-post-1.jpg' %}" width="271" height="258"
-                                    loading="lazy" alt="Helpful Tips for Working from Home as a Freelancer"
-                                    class="img-cover">
+                                <img src="{{ articulo.imagen_portada.url }}" width="271" height="258" loading="lazy"
+                                    alt="{{ articulo.titulo }}" class="img-cover">
                             </figure>
+                            {% endif %}
 
                             <div class="card-content">
 
-                                <a href="#" class="card-badge">Working Tips</a>
+                                <a href="#" class="card-badge">{{ articulo.categoria.nombre }}</a>
 
                                 <h3 class="headline headline-3 card-title">
-                                    <a href="#" class="link hover-2">Helpful Tips for Working from Home as a
-                                        Freelancer</a>
+                                    <a href="*" class="link hover-2">
+                                        {{ articulo.titulo }}
+                                    </a>
                                 </h3>
 
                                 <p class="card-text">
-                                    Gosh jaguar ostrich quail one excited dear hello and bound and the and bland moral
-                                    misheard
-                                    roadrunner flapped lynx far that and jeepers giggled far and far
+                                    {{ articulo.contenido|truncatewords:20 }}
                                 </p>
 
                                 <div class="card-wrapper">
                                     <div class="card-tag">
-                                        <a href="#" class="span hover-2"># Travel</a>
-
-                                        <a href="#" class="span hover-2"># Lifestyle</a>
+                                        <a href="#" class="span hover-2"># {{ articulo.categoria.nombre }}</a>
                                     </div>
 
                                     <div class="wrapper">
                                         <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
-
-                                        <span class="span">3 mins read</span>
+                                        <span class="span">{{ articulo.fecha_creacion|timesince }}</span>
                                     </div>
                                 </div>
 
@@ -337,135 +335,11 @@
 
                         </div>
                     </li>
-
+                    {% empty %}
                     <li>
-                        <div class="recent-post-card">
-
-                            <figure class="card-banner img-holder" style="--width: 271; --height: 258;">
-                                <img src="{% static 'images/recent-post-2.jpg' %}" width="271" height="258"
-                                    loading="lazy" alt="Helpful Tips for Working from Home as a Freelancer"
-                                    class="img-cover">
-                            </figure>
-
-                            <div class="card-content">
-
-                                <a href="#" class="card-badge">Working Tips</a>
-
-                                <h3 class="headline headline-3 card-title">
-                                    <a href="#" class="link hover-2">Helpful Tips for Working from Home as a
-                                        Freelancer</a>
-                                </h3>
-
-                                <p class="card-text">
-                                    Gosh jaguar ostrich quail one excited dear hello and bound and the and bland moral
-                                    misheard
-                                    roadrunner flapped lynx far that and jeepers giggled far and far
-                                </p>
-
-                                <div class="card-wrapper">
-                                    <div class="card-tag">
-                                        <a href="#" class="span hover-2"># Travel</a>
-
-                                        <a href="#" class="span hover-2"># Lifestyle</a>
-                                    </div>
-
-                                    <div class="wrapper">
-                                        <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
-
-                                        <span class="span">3 mins read</span>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
+                        <p>No hay artículos publicados aún.</p>
                     </li>
-
-                    <li>
-                        <div class="recent-post-card">
-
-                            <figure class="card-banner img-holder" style="--width: 271; --height: 258;">
-                                <img src="{% static 'images/recent-post-3.jpg' %}" width="271" height="258"
-                                    loading="lazy" alt="Helpful Tips for Working from Home as a Freelancer"
-                                    class="img-cover">
-                            </figure>
-
-                            <div class="card-content">
-
-                                <a href="#" class="card-badge">Working Tips</a>
-
-                                <h3 class="headline headline-3 card-title">
-                                    <a href="#" class="link hover-2">Helpful Tips for Working from Home as a
-                                        Freelancer</a>
-                                </h3>
-
-                                <p class="card-text">
-                                    Gosh jaguar ostrich quail one excited dear hello and bound and the and bland moral
-                                    misheard
-                                    roadrunner flapped lynx far that and jeepers giggled far and far
-                                </p>
-
-                                <div class="card-wrapper">
-                                    <div class="card-tag">
-                                        <a href="#" class="span hover-2"># Travel</a>
-
-                                        <a href="#" class="span hover-2"># Lifestyle</a>
-                                    </div>
-
-                                    <div class="wrapper">
-                                        <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
-
-                                        <span class="span">3 mins read</span>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="recent-post-card">
-
-                            <figure class="card-banner img-holder" style="--width: 271; --height: 258;">
-                                <img src="{% static 'images/recent-post-4.jpg' %}" width="271" height="258"
-                                    loading="lazy" alt="Helpful Tips for Working from Home as a Freelancer"
-                                    class="img-cover">
-                            </figure>
-
-                            <div class="card-content">
-
-                                <a href="#" class="card-badge">Working Tips</a>
-
-                                <h3 class="headline headline-3 card-title">
-                                    <a href="#" class="link hover-2">Helpful Tips for Working from Home as a
-                                        Freelancer</a>
-                                </h3>
-
-                                <p class="card-text">
-                                    Gosh jaguar ostrich quail one excited dear hello and bound and the and bland moral
-                                    misheard
-                                    roadrunner flapped lynx far that and jeepers giggled far and far
-                                </p>
-
-                                <div class="card-wrapper">
-                                    <div class="card-tag">
-                                        <a href="#" class="span hover-2"># Travel</a>
-
-                                        <a href="#" class="span hover-2"># Lifestyle</a>
-                                    </div>
-
-                                    <div class="wrapper">
-                                        <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
-
-                                        <span class="span">3 mins read</span>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </li>
+                    {% endfor %}
                 </ul>
                 <nav aria-label="pagination" class="pagination">
 
