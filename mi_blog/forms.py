@@ -14,6 +14,11 @@ class CustomAuthenticationForm(AuthenticationForm):
         fields = ('username', 'password')
         
 class ArticuloForm(forms.ModelForm):
+    nueva_categoria = forms.CharField(
+        required=False,
+        label="Nueva categoría",
+        widget=forms.TextInput(attrs={'placeholder': 'Crear nueva categoría'})
+    )
     class Meta:
         model = Articulo
         fields = ['titulo', 'contenido', 'imagen_portada', 'categoria']

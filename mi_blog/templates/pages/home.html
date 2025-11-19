@@ -148,26 +148,22 @@
             </p>
 
             <ul class="feature-list">
-
-                {% for articulo in articulos %}
+                {% for articulo in articulos_generales %}
                 <li>
                     <div class="card feature-card">
                         {% if articulo.imagen_portada %}
                         <figure class="card-banner img-holder" style="--width: 1602; --height: 903;">
-                            <img src="{{articulo.imagen_portada.url}}" width="1602" height="903" loading="lazy"
-                                alt="Self-observation is the first step of inner unfolding" class="img-cover">
+                            <img src="{{ articulo.imagen_portada.url }}" width="1602" height="903" loading="lazy"
+                                alt="{{ articulo.titulo }}" class="img-cover">
                         </figure>
                         {% endif %}
                         <div class="card-content">
-
                             <div class="card-wrapper">
                                 <div class="card-tag">
                                     <a href="#" class="span hover-2"># {{ articulo.categoria.nombre }}</a>
                                 </div>
-
                                 <div class="wrapper">
                                     <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
-
                                     <span class="span">{{ articulo.fecha_creacion|timesince }}</span>
                                 </div>
                             </div>
@@ -179,7 +175,6 @@
                             </h3>
 
                             <div class="card-wrapper">
-
                                 <div class="profile-card">
                                     {% if articulo.autor.imagen_perfil %}
                                     <img src="{{ articulo.autor.imagen_perfil.url }}" width="48" height="48"
@@ -188,21 +183,18 @@
                                     <img src="{% static 'images/default-profile.png' %}" width="48" height="48"
                                         loading="lazy" alt="Sin imagen" class="profile-banner">
                                     {% endif %}
-
                                     <div>
                                         <p class="card-title">{{ articulo.autor.username }}</p>
                                         <p class="card-subtitle">{{ articulo.fecha_creacion|date:"d M Y" }}</p>
                                     </div>
                                 </div>
                             </div>
-                            {% empty %}
-                            <p>No hay artículos publicados aún.</p>
-                            {% endfor %}
-
                         </div>
-
                     </div>
                 </li>
+                {% empty %}
+                <p>No hay artículos publicados aún.</p>
+                {% endfor %}
             </ul>
             <a href="#" class="btn btn-secondary">
                 <span class="span">Show More Posts</span>
@@ -216,68 +208,77 @@
     <!-- TagSection -->
     <section class="tags" aria-labelledby="tag-label">
         <div class="container">
-
             <h2 class="headline headline-2 section-title" id="tag-label">
-                <span class="span">Popular Tags</span>
+                <span class="span">Recent Tags</span>
             </h2>
-
-            <p class="section-text">
-                Most searched keywords
-            </p>
-
             <ul class="grid-list">
-
+                {% for categoria in categorias %}
                 <li>
-                    <button class="card tag-btn">
-                        <img src="{% static 'images/tag1.png'%}" width="32" height="32" loading="lazy" alt="Travel">
+                    <a href="?categoria={{ categoria.id_categoria }}"
+                        class="card tag-btn {% if categoria.id_categoria == categoria_activa %}active-tag{% endif %}">
+                        <p class="btn-text">{{ categoria.nombre }}</p>
+                    </a>
 
-                        <p class="btn-text">Travel</p>
-                    </button>
+
                 </li>
-
-                <li>
-                    <button class="card tag-btn">
-                        <img src="{% static 'images/tag2.png'%}" width="32" height="32" loading="lazy" alt="Culture">
-
-                        <p class="btn-text">Culture</p>
-                    </button>
-                </li>
-
-                <li>
-                    <button class="card tag-btn">
-                        <img src="{% static 'images/tag3.png'%}" width="32" height="32" loading="lazy" alt="Lifestyle">
-
-                        <p class="btn-text">Lifestyle</p>
-                    </button>
-                </li>
-
-                <li>
-                    <button class="card tag-btn">
-                        <img src="{% static 'images/tag4.png'%}" width="32" height="32" loading="lazy" alt="Fashion">
-
-                        <p class="btn-text">Fashion</p>
-                    </button>
-                </li>
-
-                <li>
-                    <button class="card tag-btn">
-                        <img src="{% static 'images/tag5.png'%}" width="32" height="32" loading="lazy" alt="Food">
-
-                        <p class="btn-text">Food</p>
-                    </button>
-                </li>
-
-                <li>
-                    <button class="card tag-btn">
-                        <img src="{% static 'images/tag6.png'%}" width="32" height="32" loading="lazy" alt="">
-
-                        <p class="btn-text">Space</p>
-                    </button>
-                </li>
+                {% endfor %}
             </ul>
         </div>
     </section>
     <!-- TagSectionEnds -->
+
+    <!-- filterTags -->
+    {% if categoria_activa %}
+    <section id="articulos-filtrados" class="glass-container">
+        <h2 class="headline headline-2 section-title">
+            <span class="span">Artículos de: {{ categoria_nombre }}</span>
+        </h2>
+
+        {% if articulos_filtrados %}
+        <ul class="grid-list">
+            {% for articulo in articulos_filtrados %}
+            <li>
+                <article class="filter-card">
+                    <div class="card-image-wrapper">
+                        {% if articulo.imagen_portada %}
+                        <img src="{{ articulo.imagen_portada.url }}" alt="{{ articulo.titulo }}" class="card-image">
+                        {% else %}
+                        <div class="card-image placeholder"></div>
+                        {% endif %}
+                        <span class="card-category">#{{ articulo.categoria.nombre }}</span>
+                    </div>
+
+                    <div class="card-body">
+                        <h3 class="card-title">{{ articulo.titulo }}</h3>
+                        <p class="card-excerpt">{{ articulo.contenido|truncatewords:25 }}</p>
+
+                        <div class="card-footer">
+                            <div class="author-info">
+                                {% if articulo.autor.imagen_perfil %}
+                                <img src="{{ articulo.autor.imagen_perfil.url }}" alt="{{ articulo.autor.username }}"
+                                    class="author-avatar">
+                                {% else %}
+                                <img src="{% static 'images/default-profile.png' %}" alt="Sin imagen"
+                                    class="author-avatar">
+                                {% endif %}
+                                <div>
+                                    <p class="author-name">{{ articulo.autor.username }}</p>
+                                    <p class="publish-date">{{ articulo.fecha_creacion|date:"d M Y" }}</p>
+                                </div>
+                            </div>
+                            <span class="time-since">{{ articulo.fecha_creacion|timesince }}</span>
+                        </div>
+                    </div>
+                </article>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="section-text">No hay artículos en esta categoría.</p>
+        {% endif %}
+    </section>
+    {% endif %}
+    <!-- filterTagsEnds -->
 
     <!-- RecentPostSection -->
     <section class="section recent-post" id="recent" aria-labelledby="recent-label">
@@ -294,8 +295,7 @@
                 </p>
 
                 <ul class="grid-list">
-
-                    {% for articulo in articulos %}
+                    {% for articulo in articulos_generales %}
                     <li>
                         <div class="recent-post-card">
 
@@ -622,6 +622,11 @@
             <div class="form-group">
                 {{ form.categoria.label_tag }}
                 {{ form.categoria }}
+            </div>
+
+            <div class="form-group">
+                {{ form.nueva_categoria.label_tag }}
+                {{ form.nueva_categoria }}
             </div>
 
             <button type="submit" class="btn-publicar">Publicar</button>

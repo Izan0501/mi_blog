@@ -3,22 +3,63 @@ from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm, CustomAuthenticationForm, ArticuloForm
-from .models import Articulo
+from .models import Articulo, Categoria
 
 # Página de inicio
 @login_required
 def home(request):
     form = ArticuloForm()
+
+    # Creación de artículo
     if request.method == 'POST':
         form = ArticuloForm(request.POST, request.FILES)
         if form.is_valid():
             articulo = form.save(commit=False)
+            nueva_categoria = form.cleaned_data.get('nueva_categoria')
+
+            if nueva_categoria:
+                categoria_obj, created = Categoria.objects.get_or_create(nombre=nueva_categoria)
+                articulo.categoria = categoria_obj
+            else:
+                articulo.categoria = form.cleaned_data['categoria']
+
             articulo.autor = request.user
             articulo.publicado = True
             articulo.save()
             return redirect('home')
-    articulos = Articulo.objects.filter(publicado=True).order_by('-fecha_creacion') 
-    return render(request, 'pages/home.html', {'form': form, 'articulos': articulos})
+
+    # Filtrado por categoría
+    try:
+        categoria_id = int(request.GET.get('categoria'))
+    except (TypeError, ValueError):
+        categoria_id = None
+
+    articulos_generales = Articulo.objects.filter(publicado=True)
+    articulos_filtrados = None
+
+    if categoria_id:
+        articulos_filtrados = articulos_generales.filter(categoria__id_categoria=categoria_id)
+
+    # Todas las categorías
+    categorias = Categoria.objects.all()
+
+    # Nombre de la categoría activa
+    categoria_nombre = None
+    if categoria_id:
+        categoria_obj = Categoria.objects.filter(id_categoria=categoria_id).first()
+        if categoria_obj:
+            categoria_nombre = categoria_obj.nombre
+
+    return render(request, 'pages/home.html', {
+        'form': form,
+        'articulos': articulos_filtrados.order_by('-fecha_creacion') if articulos_filtrados else articulos_generales.order_by('-fecha_creacion'),
+        'articulos_filtrados': articulos_filtrados.order_by('-fecha_creacion') if articulos_filtrados else None,
+        'articulos_generales': articulos_generales.order_by('-fecha_creacion'),
+        'categorias': categorias,
+        'categoria_activa': categoria_id,
+        'categoria_nombre': categoria_nombre
+    })
+
 
 # USER VIEWS
 # Registro de usuario
