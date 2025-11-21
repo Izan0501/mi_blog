@@ -216,7 +216,7 @@
                 <li>
                     <a href="?categoria={{ categoria.id_categoria }}"
                         class="card tag-btn {% if categoria.id_categoria == categoria_activa %}active-tag{% endif %}">
-                        <p class="btn-text">{{ categoria.nombre }}</p>
+                        <p class="btn-text">#{{ categoria.nombre }}</p>
                     </a>
 
 
@@ -231,7 +231,7 @@
     {% if categoria_activa %}
     <section id="articulos-filtrados" class="glass-container">
         <h2 class="headline headline-2 section-title">
-            <span class="span">Artículos de: {{ categoria_nombre }}</span>
+            <span class="span">#{{ categoria_nombre }}</span>
         </h2>
 
         {% if articulos_filtrados %}
