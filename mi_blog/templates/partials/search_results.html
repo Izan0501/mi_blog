@@ -1,0 +1,33 @@
+{% load static %}
+{# partials/search_results.html #}
+<div class="search-dropdown">
+    {% if usuarios_resultados or categorias_resultados %}
+    <ul class="results-list">
+        {# Usuarios encontrados #}
+        {% for usuario in usuarios_resultados %}
+        <li class="result-item">
+            <a href="{% url 'profile' %}?user={{ usuario.username }}" class="result-link">
+                {% if usuario.imagen_perfil %}
+                <img src="{{ usuario.imagen_perfil.url }}" alt="{{ usuario.username }}" class="result-avatar">
+                {% else %}
+                <img src="{% static 'images/default-profile.png' %}" alt="Perfil" class="result-avatar">
+                {% endif %}
+                <span>{{ usuario.username }}</span>
+            </a>
+        </li>
+
+        {% endfor %}
+
+        {# Categorías encontradas #}
+        {% for categoria in categorias_resultados %}
+        <li class="result-item">
+            <a href="{% url 'home' %}?categoria={{ categoria.id_categoria }}#articulos-filtrados" class="result-link">
+                #{{ categoria.nombre }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="no-results">Sin resultados para "{{ query }}"</p>
+    {% endif %}
+</div>

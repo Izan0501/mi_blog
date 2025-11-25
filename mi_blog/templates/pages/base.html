@@ -25,12 +25,18 @@
             <div class="nav-logo">
                 <img src="{% static 'images/logo-1.png'%}" alt="" width="80px" height="80px">
             </div>
-
-
             <ul class="nav-links">
+                <li class="nav-search">
+                    <div class="search-form">
+                        <input type="text" id="live-search" placeholder="Buscar usuarios o categorías..."
+                            class="search-input">
+                        <button type="button" class="search-btn">
+                            <ion-icon name="search-outline"></ion-icon>
+                        </button>
+                    </div>
+                </li>
                 <li><a href="{% url 'home' %}">Home</a></li>
                 <li><a href="{% url 'home' %}#publicar">Publicar</a></li>
-                <li><a href="#">Buscar</a></li>
                 {% if user.is_authenticated %}
                 <li>
                     <a href="{% url 'profile' %}" class="nav-user">
@@ -45,9 +51,7 @@
                 {% else %}
                 <li><a href="{% url 'login' %}">Iniciar sesión</a></li>
                 {% endif %}
-
             </ul>
-
             <div class="hamburger">
                 <span></span>
                 <span></span>
@@ -114,6 +118,30 @@
 
     <!-- JS script -->
     <script src="{% static 'js/script.js' %}"></script>
+
+    <!-- search-ajax function -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const input = document.getElementById("live-search");
+            const resultsBox = document.getElementById("search-results");
+
+            input.addEventListener("keyup", function () {
+                const query = this.value.trim();
+                if (query.length > 0) {
+                    fetch(`/search-ajax/?q=${encodeURIComponent(query)}`)
+                        .then(response => response.text())
+                        .then(html => {
+                            resultsBox.innerHTML = html;
+                            resultsBox.style.display = "block";
+                        });
+                } else {
+                    resultsBox.style.display = "none";
+                }
+            });
+        });
+    </script>
+
+
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

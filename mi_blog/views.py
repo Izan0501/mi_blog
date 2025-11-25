@@ -4,6 +4,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm, CustomAuthenticationForm, ArticuloForm
 from .models import Articulo, Categoria
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 # Página de inicio
 @login_required
@@ -58,6 +60,22 @@ def home(request):
         'categorias': categorias,
         'categoria_activa': categoria_id,
         'categoria_nombre': categoria_nombre
+    })
+# Busqueda AJAX
+@login_required
+def search_ajax(request):
+    query = request.GET.get('q', '')
+    usuarios_resultados = []
+    categorias_resultados = []
+
+    if query:
+        usuarios_resultados = User.objects.filter(username__icontains=query)[:5]
+        categorias_resultados = Categoria.objects.filter(nombre__icontains=query)[:5]
+
+    return render(request, 'partials/search_results.html', {
+        'usuarios_resultados': usuarios_resultados,
+        'categorias_resultados': categorias_resultados,
+        'query': query
     })
 
 

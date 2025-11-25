@@ -5,6 +5,9 @@
 
 {% block content %}
 <article>
+    <div id="search-results" class="search-results glass-dropdown" style="display:none;">
+        <!--partials/search_results.html -->
+    </div>
     <!-- TopicSection -->
     <section class="topics" id="topics" aria-labelledby="topic-label">
         <div class="container">
@@ -214,7 +217,7 @@
             <ul class="grid-list">
                 {% for categoria in categorias %}
                 <li>
-                    <a href="?categoria={{ categoria.id_categoria }}"
+                    <a href="?categoria={{ categoria.id_categoria }}#articulos-filtrados"
                         class="card tag-btn {% if categoria.id_categoria == categoria_activa %}active-tag{% endif %}">
                         <p class="btn-text">#{{ categoria.nombre }}</p>
                     </a>

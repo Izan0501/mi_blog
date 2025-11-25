@@ -12,9 +12,9 @@ Vista principal (home)
 - Filtrado de categorías:
 - Al seleccionar una categoría, se muestran solo los artículos correspondientes en cards dentro del contenedor filtrado.
 - Se muestra el nombre de la categoría activa.
-- Próximamente:
-- Se solucionará el error de recarga de página al seleccionar categoría (AJAX/Fetch para actualización dinámica).
-- Scroll automático hacia la sección filtrada.
+- Implementado:
+- Búsqueda con AJAX que permite filtrar categorías y usuarios en tiempo real desde la barra de búsqueda.
+- Al hacer clic en una categoría buscada, la página baja automáticamente hasta el contenedor #articulos-filtrados donde se muestran sus artículos y proximamente se podra navegar hacia el perfil de un usuario que mostrara sus publicaciones realizadas.
 - Extras ya implementados:
 - Botón “Back to Top” funcional.
 - Diseño mobile-first optimizado para pantallas pequeñas.
@@ -32,21 +32,19 @@ Formulario de creación (ArticuloForm)
 Menú desplegable de categorías
 - Confirmar que el artículo se guarda con la categoría elegida.
 - Filtrado dinámico en cards dentro del contenedor #articulos-filtrados.
-- Próximamente:
-- No recarga de página al seleccionar categoría.
-- Scroll automático hacia la sección filtrada.
+- Implementado:
+- Scroll automático hacia la sección filtrada al hacer clic en una categoría buscada.
+Proximamente:
 - Mejora visual del <select> con glassmorphism y animaciones.
 
-5. Perfil → Publicar
-Desde la vista de perfil
-- Probar el botón/link “Publicar artículo”.
-- Confirmar que redirige al home y baja directo al formulario (#publicar).
-
-6. Interacción en publicaciones (próximamente)
+5. Interacción en publicaciones (próximamente)
 - Comentarios: los usuarios podrán dejar comentarios en cada artículo.
 - Likes: sistema de “me gusta” para cada publicación.
-- Barra de búsqueda: búsqueda de artículos por título, usuarios, contenido o categoría.
+- Próximamente:
+- Navegación hacia las publicaciones realizadas por el usuario buscado desde la barra de búsqueda.
 
-7. Footer (próximamente)
+6. Footer (próximamente)
 - Rediseño del footer con enlaces útiles, redes sociales, y estilo glassmorphism.
 - Inclusión de créditos, contacto y navegación rápida.
+
+
