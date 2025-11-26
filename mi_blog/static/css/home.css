@@ -267,8 +267,12 @@ body.nav-active {
 }
 
 .card {
-    background-color: var(--bg-oxford-blue);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 1px 4px rgba(255,255,255,0.2),
+              0 4px 12px rgba(0,0,0,0.25);
     border: 1px solid var(--border-prussian-blue);
+        -webkit-backdrop-filter: blur(25px) saturate(180%);
+    backdrop-filter: blur(25px) saturate(180%);
 }
 
 .img-holder {
@@ -412,11 +416,11 @@ header {
 .search-form {
     display: flex;
     align-items: center;
-    background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(12px);
     border-radius: 50px;
     padding: 6px 16px; 
     width: 320px;      
+    background: rgba(255, 255, 255, 0.08);
     box-shadow: inset 0 1px 4px rgba(255,255,255,0.2),
               0 4px 12px rgba(0,0,0,0.25);
 }
@@ -1278,8 +1282,8 @@ footer {
     padding: 2rem;
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(25px) saturate(180%);
     -webkit-backdrop-filter: blur(25px) saturate(180%);
+    backdrop-filter: blur(25px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.25);
     border-top: 1px solid rgba(255, 255, 255, 0.4);
     border-left: 1px solid rgba(255, 255, 255, 0.2);
@@ -1481,7 +1485,9 @@ footer {
   right: 20px;
   width: 50px;
   height: 50px;
-  background-color: var(--bg-prussian-blue);
+  background-color: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 4px rgba(255,255,255,0.2),
+              0 4px 12px rgba(0,0,0,0.25);
   color: var(--white);
   display: grid;
   place-items: center;

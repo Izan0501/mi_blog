@@ -170,10 +170,6 @@
     text-align: right;
   }
   
-  .btn-back {
-    width: 50%;
-  }
-
 }
 
 @media (min-width: 1024px) {
