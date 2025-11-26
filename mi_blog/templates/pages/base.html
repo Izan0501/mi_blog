@@ -11,6 +11,7 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <link rel="stylesheet" href="{% static 'css/home.css' %}" />
     <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/detalle_articulo.css' %}" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700;800&display=swap"
@@ -27,13 +28,13 @@
             </div>
             <ul class="nav-links">
                 <li class="nav-search">
-                    <div class="search-form">
+                    <form class="search-form">
                         <input type="text" id="live-search" placeholder="Buscar usuarios o categorías..."
                             class="search-input">
-                        <button type="button" class="search-btn">
+                        <button type="submit" class="search-btn">
                             <ion-icon name="search-outline"></ion-icon>
                         </button>
-                    </div>
+                    </form>
                 </li>
                 <li><a href="{% url 'home' %}">Home</a></li>
                 <li><a href="{% url 'home' %}#publicar">Publicar</a></li>
@@ -118,29 +119,6 @@
 
     <!-- JS script -->
     <script src="{% static 'js/script.js' %}"></script>
-
-    <!-- search-ajax function -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const input = document.getElementById("live-search");
-            const resultsBox = document.getElementById("search-results");
-
-            input.addEventListener("keyup", function () {
-                const query = this.value.trim();
-                if (query.length > 0) {
-                    fetch(`/search-ajax/?q=${encodeURIComponent(query)}`)
-                        .then(response => response.text())
-                        .then(html => {
-                            resultsBox.innerHTML = html;
-                            resultsBox.style.display = "block";
-                        });
-                } else {
-                    resultsBox.style.display = "none";
-                }
-            });
-        });
-    </script>
-
 
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

@@ -1,11 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends 'pages/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<section class="detalle-articulo glass-container">
+    <div class="detalle-header">
+        <h1 class="detalle-title">{{ articulo.titulo }}</h1>
+        <span class="detalle-category">#{{ articulo.categoria.nombre }}</span>
+    </div>
+
+    <div class="detalle-meta">
+        <div class="author-info">
+            {% if articulo.autor.imagen_perfil %}
+            <img src="{{ articulo.autor.imagen_perfil.url }}" alt="{{ articulo.autor.username }}" class="author-avatar">
+            {% else %}
+            <img src="{% static 'images/default-profile.png' %}" alt="Perfil" class="author-avatar">
+            {% endif %}
+            <div>
+                <p class="author-name">{{ articulo.autor.username }}</p>
+                <p class="publish-date">{{ articulo.fecha_creacion|date:"d M Y" }}</p>
+            </div>
+        </div>
+        <span class="time-since">{{ articulo.fecha_creacion|timesince }}</span>
+    </div>
+
+    <div class="detalle-body">
+        {% if articulo.imagen_portada %}
+        <img style="border-radius: 10px;" src="{{ articulo.imagen_portada.url }}" alt="{{ articulo.titulo }}" class="detalle-image">
+        {% endif %}
+        <p class="detalle-content">{{ articulo.contenido|linebreaks }}</p>
+    </div>
+
+    <div class="detalle-footer">
+        <a href="{% url 'home' %}" class="btn-back">⬅ Volver al Home</a>
+    </div>
+</section>
+{% endblock %}

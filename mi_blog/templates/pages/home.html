@@ -5,9 +5,12 @@
 
 {% block content %}
 <article>
+    <!-- search-ajax -->
     <div id="search-results" class="search-results glass-dropdown" style="display:none;">
         <!--partials/search_results.html -->
     </div>
+    <!-- search-ajaxEnds -->
+
     <!-- TopicSection -->
     <section class="topics" id="topics" aria-labelledby="topic-label">
         <div class="container">
@@ -139,7 +142,6 @@
     <!-- FeaturedSection -->
     <section class="section feature" aria-label="feature" id="featured">
 
-
         <div class="container">
 
             <h2 class="headline headline-2 section-title">
@@ -192,6 +194,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <a style="width: 22%; margin-left: 0%; padding-left: 10px;"
+                                href="{% url 'detalle_articulo' articulo.id_articulo %}" class="btn-readmore">Leer
+                                más</a>
                         </div>
                     </div>
                 </li>
@@ -243,16 +248,22 @@
             <li>
                 <article class="filter-card">
                     <div class="card-image-wrapper">
-                        {% if articulo.imagen_portada %}
-                        <img src="{{ articulo.imagen_portada.url }}" alt="{{ articulo.titulo }}" class="card-image">
-                        {% else %}
-                        <div class="card-image placeholder"></div>
-                        {% endif %}
+                        <a href="{% url 'detalle_articulo' articulo.pk %}">
+                            {% if articulo.imagen_portada %}
+                            <img src="{{ articulo.imagen_portada.url }}" alt="{{ articulo.titulo }}" class="card-image">
+                            {% else %}
+                            <div class="card-image placeholder"></div>
+                            {% endif %}
+                        </a>
                         <span class="card-category">#{{ articulo.categoria.nombre }}</span>
                     </div>
 
                     <div class="card-body">
-                        <h3 class="card-title">{{ articulo.titulo }}</h3>
+                        <h3 class="card-title">
+                            <a href="{% url 'detalle_articulo' articulo.pk %}">
+                                {{ articulo.titulo }}
+                            </a>
+                        </h3>
                         <p class="card-excerpt">{{ articulo.contenido|truncatewords:25 }}</p>
 
                         <div class="card-footer">
@@ -271,6 +282,8 @@
                             </div>
                             <span class="time-since">{{ articulo.fecha_creacion|timesince }}</span>
                         </div>
+                        <a href="{% url 'detalle_articulo' articulo.id_articulo %}" class="btn-readmore">Leer
+                            más</a>
                     </div>
                 </article>
             </li>
@@ -281,6 +294,7 @@
         {% endif %}
     </section>
     {% endif %}
+
     <!-- filterTagsEnds -->
 
     <!-- RecentPostSection -->

@@ -7,6 +7,7 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('profile/', views.profile_view, name='profile'),
     path('logout/', views.logout_view, name='logout'),
+    path('articulo/<int:id_articulo>/', views.detalle_articulo, name='detalle_articulo'),
     # ruta de busqueda AJAX
     path('search-ajax/', views.search_ajax, name='search_ajax'),
 ]

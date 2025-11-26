@@ -7,6 +7,26 @@ hamburger.addEventListener("click", () => {
     hamburger.classList.toggle("open");
 });
 
+// LIVE SEARCH AJAX FUNCTIONALITY
+document.addEventListener("DOMContentLoaded", function () {
+            const input = document.getElementById("live-search");
+            const resultsBox = document.getElementById("search-results");
+
+            input.addEventListener("keyup", function () {
+                const query = this.value.trim();
+                if (query.length > 0) {
+                    fetch(`/search-ajax/?q=${encodeURIComponent(query)}`)
+                        .then(response => response.text())
+                        .then(html => {
+                            resultsBox.innerHTML = html;
+                            resultsBox.style.display = "block";
+                        });
+                } else {
+                    resultsBox.style.display = "none";
+                }
+            });
+        });
+
 // Main Slider
 const slider = document.querySelector("[data-slider]");
 const sliderContainer = document.querySelector("[data-slider-container]");
