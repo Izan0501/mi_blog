@@ -1,0 +1,36 @@
+{% extends "pages/base.html" %}
+{% load static %}
+{% block title %} Perfil User {% endblock %}
+{% block content %}
+
+<div class="profile-wrapper">
+    <header class="profile-header">
+        <div class="profile-avatar">
+            {% if usuario.imagen_perfil %}
+            <img src="{{ usuario.imagen_perfil.url }}" alt="Imagen de perfil">
+            {% else %}
+            <img src="{% static 'images/default-profile.png' %}" alt="Sin imagen">
+            {% endif %}
+        </div>
+        <div class="profile-info">
+            <h1 class="profile-name">{{ usuario.username }}</h1>
+        </div>
+    </header>
+
+    <section class="profile-posts">
+        <h2>Publicaciones de {{ usuario.username }}</h2>
+        <ul class="post-list">
+            {% for articulo in publicaciones %}
+            <li class="post-card">
+                <h3>{{ articulo.titulo }}</h3>
+                <p>{{ articulo.contenido|truncatewords:30 }}</p>
+                <a href="{% url 'detalle_articulo' articulo.id_articulo %}" class="btn-view">Ver</a>
+            </li>
+            {% empty %}
+            <p class="empty-message">Este usuario no ha publicado nada aún.</p>
+            {% endfor %}
+        </ul>
+    </section>
+</div>
+
+{% endblock %}

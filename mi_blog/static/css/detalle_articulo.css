@@ -22,6 +22,7 @@
 
 
 .detalle-articulo {
+  width: 80%;
   background: rgba(255, 255, 255, 0.08); 
   backdrop-filter: blur(18px) saturate(180%);
   -webkit-backdrop-filter: blur(18px) saturate(180%);
@@ -219,87 +220,70 @@
   resize: none;
 }
 
+/* Lista de comentarios */
 .comentario-list {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 2rem auto;
+  max-width: 800px; /* 🔥 ancho máximo controlado */
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 80%;
 }
 
+/* Card de comentario */
 .comentario-card {
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(12px);
-  border-radius: 12px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  color: rgba(255,255,255,0.9);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 16px;
+  padding: 1.5rem 2rem;
+  color: var(--text-white);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.comentario-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.45);
+}
+
+/* Meta del comentario (avatar + info) */
 .comentario-meta {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 0.5rem;
-}
-
-.comentario-autor {
-  font-weight: 600;
-}
-
-.comentario-fecha {
-  font-size: 0.8rem;
-  color: rgba(255,255,255,0.6);
-}
-
-.comentario-contenido {
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
-
-.comentario-card {
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(12px);
-  border-radius: 12px;
-  padding: 1rem;
+  gap: 1rem;
   margin-bottom: 1rem;
-  color: rgba(255,255,255,0.9);
-}
-
-.comentario-autor-info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
 }
 
 .author-avatar {
-  width: 38px;
-  height: 38px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.3);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-}
-
-.autor-detalle {
-  display: flex;
-  flex-direction: column;
+  border: 2px solid rgba(255,255,255,0.25);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  object-fit: cover;
 }
 
 .comentario-autor {
   font-weight: 600;
-  font-size: 0.95rem;
-  color: var(--text-columbia-blue);
+  font-size: 1rem;
+  color: var(--text-alice-blue);
 }
 
 .comentario-fecha {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: rgba(255,255,255,0.6);
+  margin-left: auto;
 }
 
+/* Contenido del comentario */
 .comentario-contenido {
-  margin-top: 0.8rem;
-  font-size: 0.95rem;
-  line-height: 1.5;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.85);
+  margin: 0;
 }
-
 
 /*responsive part  */
 .detalle-title {

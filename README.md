@@ -26,7 +26,7 @@ Implementado:
 
 Búsqueda con AJAX que permite filtrar categorías y usuarios en tiempo real desde la barra de búsqueda.
 
-Al hacer clic en una categoría buscada, la página baja automáticamente hasta el contenedor #articulos-filtrados donde se muestran sus artículos y próximamente se podrá navegar hacia el perfil de un usuario que mostrará sus publicaciones realizadas.
+Al hacer click en una categoría buscada, la página baja automáticamente hasta el contenedor #articulos-filtrados donde se muestran sus artículos. Al hacer click en un perfil, la pagina redirigira hacia el perfil del usuario seleccionado, donde se encuentran sus publicaciones realizadas (user_profile).
 
 Extras ya implementados:
 
@@ -62,7 +62,7 @@ Scroll automático hacia la sección filtrada al hacer clic en una categoría bu
 
 5. Interacción en publicaciones
 Comentarios (implementado)
-Los usuarios pueden dejar comentarios en cada artículo a traves de un input seguido de clickear en el boton "comentar".
+Los usuarios pueden dejar comentarios (en el template detalle_producto) en cada artículo a traves de un input, seguido de clickear en el boton "comentar".
 
 Likes (implementado)
 Se agregó un sistema de “me gusta” para cada publicación.

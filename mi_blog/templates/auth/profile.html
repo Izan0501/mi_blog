@@ -3,7 +3,6 @@
 {% block title %} Perfil {% endblock %}
 {% block content %}
 
-<!-- Mensajes -->
 {% if messages %}
 <div class="messages-container">
     {% for message in messages %}
@@ -15,28 +14,74 @@
 </div>
 {% endif %}
 
-<!-- Perfil -->
-<div class="profile-container">
-    <h2>Mi Perfil</h2>
+<div class="profile-wrapper">
+    <!-- Header del perfil -->
+    <header class="profile-header">
+        <div class="profile-avatar">
+            {% if user.imagen_perfil %}
+            <img src="{{ user.imagen_perfil.url }}" alt="Imagen de perfil">
+            {% else %}
+            <img src="{% static 'images/default-profile.png' %}" alt="Sin imagen">
+            {% endif %}
+        </div>
+        <div class="profile-info">
+            <h1 class="profile-name">{{ user.username }}</h1>
+            <a href="#" class="btn-edit" onclick="openModal()">Editar perfil</a>
+            <a href="{% url 'logout' %}" class="btn-logout">Cerrar sesión</a>
+        </div>
+    </header>
 
-    <div class="profile-image">
-        {% if user.imagen_perfil %}
-        <img src="{{ user.imagen_perfil.url }}" alt="Imagen de perfil">
-        {% else %}
-        <img src="{% static 'images/default-profile.png' %}" alt="Sin imagen">
-        {% endif %}
-    </div>
+    <!-- Publicaciones -->
+    <section class="profile-posts">
+        <h2>Mis Publicaciones</h2>
+        <ul class="post-list">
+            {% for articulo in publicaciones %}
+            <li class="post-card">
+                <h3>{{ articulo.titulo }}</h3>
+                <p>{{ articulo.contenido|truncatewords:30 }}</p>
+                <div class="post-actions">
+                    <a href="{% url 'detalle_articulo' articulo.id_articulo %}" class="btn-view">Ver</a>
+                    <form method="post" action="{% url 'eliminar_articulo' articulo.id_articulo %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-delete">Eliminar</button>
+                    </form>
+                </div>
+            </li>
+            {% empty %}
+            <p class="empty-message">
+                <ion-icon name="document-outline"></ion-icon>
+                No has publicado ningún artículo aún.
+            </p>
+            {% endfor %}
+        </ul>
+    </section>
 
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Guardar cambios</button>
-    </form>
+</div>
 
-    <div class="logout-link">
-        <a href="{% url 'logout' %}">Cerrar sesión</a>
+<!-- Modal -->
+<div id="editModal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <h2>Editar Perfil</h2>
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn-save">Guardar cambios</button>
+            </form>
+        </div>
     </div>
 </div>
-{% endblock %}
 
-</html>
+<script>
+    function openModal() {
+        document.getElementById("editModal").style.display = "flex";
+    }
+    function closeModal() {
+        document.getElementById("editModal").style.display = "none";
+    }
+</script>
+
+{% endblock %}

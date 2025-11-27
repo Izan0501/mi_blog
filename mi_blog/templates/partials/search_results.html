@@ -6,7 +6,7 @@
         {# Usuarios encontrados #}
         {% for usuario in usuarios_resultados %}
         <li class="result-item">
-            <a href="{% url 'profile' %}?user={{ usuario.username }}" class="result-link">
+            <a href="{% url 'perfil_usuario' usuario.username %}" class="result-link">
                 {% if usuario.imagen_perfil %}
                 <img src="{{ usuario.imagen_perfil.url }}" alt="{{ usuario.username }}" class="result-avatar">
                 {% else %}

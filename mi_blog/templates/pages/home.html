@@ -5,6 +5,17 @@
 {% block title %} Inicio {% endblock %}
 
 {% block content %}
+{% if messages %}
+<div class="messages-container">
+    {% for message in messages %}
+    <div class="message {{ message.tags }}">
+        {{ message }}
+        <button class="close-btn" onclick="this.parentElement.style.display='none'">&times;</button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
 <article>
     <!-- search-ajax -->
     <div id="search-results" class="search-results glass-dropdown" style="display:none;">

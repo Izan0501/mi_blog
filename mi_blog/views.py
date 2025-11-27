@@ -14,7 +14,6 @@ User = get_user_model()
 def home(request):
     form = ArticuloForm()
 
-    # Creación de artículo
     if request.method == 'POST':
         form = ArticuloForm(request.POST, request.FILES)
         if form.is_valid():
@@ -30,7 +29,12 @@ def home(request):
             articulo.autor = request.user
             articulo.publicado = True
             articulo.save()
+
+            messages.success(request, "Artículo creado con éxito 🎉")
+
             return redirect('home')
+        else:
+            messages.error(request, "Hubo un error al crear el artículo.")
 
     # Filtrado por categoría
     try:
@@ -143,6 +147,7 @@ def login_view(request):
 @login_required
 def profile_view(request):
     user = request.user
+
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
@@ -153,7 +158,19 @@ def profile_view(request):
             messages.error(request, "Hubo un error al actualizar tu perfil.")
     else:
         form = CustomUserCreationForm(instance=user)
-    return render(request, 'auth/profile.html', {'form': form, 'user': user})
+
+    # Publicaciones del usuario
+    publicaciones = Articulo.objects.filter(autor=user).order_by('-fecha_creacion')
+
+    return render(
+        request,
+        'auth/profile.html',
+        {
+            'form': form,
+            'user': user,
+            'publicaciones': publicaciones,  # 👈 ahora el template recibe las publicaciones
+        }
+    )
 
 # Logout de usuario
 def logout_view(request):
@@ -161,6 +178,22 @@ def logout_view(request):
     messages.info(request, "Has cerrado sesión correctamente 👋")
     return redirect("login")
 
+# Perfil de otro usuario
+def perfil_usuario(request, username):
+    usuario = get_object_or_404(User, username=username)
+    publicaciones = Articulo.objects.filter(autor=usuario).order_by('-fecha_creacion')
+
+    return render(
+        request,
+        'pages/user_profile.html',
+        {
+            'usuario': usuario,
+            'publicaciones': publicaciones,
+        }
+    )
+# USER VIEWS END
+
+# ARTICLE VIEWS 
 # Detalle de artículo
 def detalle_articulo(request, id_articulo):
     articulo = get_object_or_404(Articulo, id_articulo=id_articulo)
@@ -200,6 +233,16 @@ def detalle_articulo(request, id_articulo):
         'comentarios': comentarios,
         'form_comentario': form,
     })
+    
+# Eliminar articulo
+def eliminar_articulo(request, articulo_id):
+    articulo = get_object_or_404(Articulo, id_articulo=articulo_id, autor=request.user)
+    if request.method == "POST":
+        articulo.delete()
+        messages.success(request, "Artículo eliminado con éxito 🗑️")
+        return redirect('profile')
+    # Si alguien entra por GET, lo redirigimos igual
+    return redirect('profile')
 
 # Likes
 @login_required
@@ -212,6 +255,7 @@ def toggle_like(request, tipo_objeto, id_objeto):
     if not created:
         like.delete()
     return redirect(request.META.get('HTTP_REFERER', 'home'))
+# ARTICLE VIEWS END
 
 
 
