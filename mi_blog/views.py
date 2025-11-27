@@ -157,10 +157,6 @@ def logout_view(request):
     messages.info(request, "Has cerrado sesión correctamente 👋")
     return redirect("login")
 
-def detalle_articulo(request, id_articulo):
-    articulo = get_object_or_404(Articulo, id_articulo=id_articulo)
-    return render(request, 'pages/detalle_articulo.html', {'articulo': articulo})
-
 # Detalle de artículo
 def detalle_articulo(request, id_articulo):
     articulo = get_object_or_404(Articulo, id_articulo=id_articulo)
