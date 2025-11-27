@@ -48,8 +48,56 @@
         </div>
 
     </div>
+    <!-- comments form -->
+    <div class="detalle-comentarios">
+        <form method="post" class="comentario-form">
+            {% csrf_token %}
+            {{ form_comentario }}
+            <button type="submit" class="btn-readmore">Comentar</button>
+        </form>
+    </div>
+
     <div class="detalle-footer">
         <a class="btn-readmore" href="{% url 'home' %}" class="btn-back">⬅ Home</a>
     </div>
 </section>
+<!-- comments list -->
+<div>
+    <!-- Listado de comentarios -->
+    <ul class="comentario-list">
+        <h3 class="headline headline-3">Comments</h3>
+        {% for comentario in comentarios %}
+        <li class="comentario-card">
+            <div class="comentario-meta">
+                <div class="comentario-autor-info">
+                    {% if comentario.usuario and comentario.usuario.imagen_perfil %}
+                    <img src="{{ comentario.usuario.imagen_perfil.url }}" alt="{{ comentario.usuario.username }}"
+                        class="author-avatar">
+                    {% else %}
+                    <img src="{% static 'images/default-profile.png' %}" alt="Perfil" class="author-avatar">
+                    {% endif %}
+                    <div class="autor-detalle">
+                        <span class="comentario-autor">
+                            {% if comentario.usuario %}
+                            {{ comentario.usuario.username }}
+                            {% else %}
+                            Anónimo
+                            {% endif %}
+                        </span>
+                        <span class="comentario-fecha">
+                            {{ comentario.fecha_creacion|date:"d M Y H:i" }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <p class="comentario-contenido">{{ comentario.contenido|linebreaks }}</p>
+        </li>
+        {% empty %}
+        <p class="empty-message">
+            <ion-icon name="chatbubble-outline"></ion-icon>
+            No hay comentarios aún. Sé el primero en comentar.
+        </p>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}

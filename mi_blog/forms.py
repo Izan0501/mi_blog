@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import CustomUser, Articulo
+from .models import CustomUser, Articulo, Comentario
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
@@ -22,3 +22,18 @@ class ArticuloForm(forms.ModelForm):
     class Meta:
         model = Articulo
         fields = ['titulo', 'contenido', 'imagen_portada', 'categoria']
+
+class ComentarioForm(forms.ModelForm):
+    class Meta:
+        model = Comentario
+        fields = ['contenido']
+        widgets = {
+            'contenido': forms.Textarea(attrs={
+                'rows': 3,
+                'placeholder': 'Escribe un comentario...',
+                'class': 'comentario-input'
+            }),
+        }
+        labels = {
+            'contenido': ''
+        }

@@ -61,8 +61,8 @@ Implementado:
 Scroll automático hacia la sección filtrada al hacer clic en una categoría buscada.
 
 5. Interacción en publicaciones
-Comentarios (próximamente)
-Los usuarios podrán dejar comentarios en cada artículo.
+Comentarios (implementado)
+Los usuarios pueden dejar comentarios en cada artículo a traves de un input seguido de clickear en el boton "comentar".
 
 Likes (implementado)
 Se agregó un sistema de “me gusta” para cada publicación.

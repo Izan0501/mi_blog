@@ -1,4 +1,5 @@
 {% extends "pages/base.html" %}
+
 {% load static %}
 
 {% block title %} Inicio {% endblock %}
@@ -168,7 +169,7 @@
                     </div>
                 </li>
                 {% empty %}
-                <p>No hay artículos publicados aún.</p>
+                <p class="empty-message">No hay artículos publicados aún.</p>
                 {% endfor %}
             </ul>
             <a href="#" class="btn btn-secondary">
@@ -193,8 +194,6 @@
                         class="card tag-btn {% if categoria.id_categoria == categoria_activa %}active-tag{% endif %}">
                         <p class="btn-text">#{{ categoria.nombre }}</p>
                     </a>
-
-
                 </li>
                 {% endfor %}
             </ul>
@@ -257,7 +256,7 @@
             {% endfor %}
         </ul>
         {% else %}
-        <p class="section-text">No hay artículos en esta categoría.</p>
+        <p class="empty-message">No hay artículos en esta categoría.</p>
         {% endif %}
     </section>
     {% endif %}
@@ -294,7 +293,7 @@
                                 <a href="#" class="card-badge">{{ articulo.categoria.nombre }}</a>
 
                                 <h3 class="headline headline-3 card-title">
-                                    <a href="*" class="link hover-2">
+                                    <a href="{% url 'detalle_articulo' articulo.id_articulo %}" class="link hover-2">
                                         {{ articulo.titulo }}
                                     </a>
                                 </h3>
@@ -410,88 +409,56 @@
                 <div class="card aside-card">
 
                     <h3 class="headline headline-2 aside-title">
-                        <span class="span">Last Comment</span>
+                        <span class="span">Last Comments</span>
                     </h3>
 
                     <ul class="comment-list">
 
+                        {% for comentario in comentarios_recientes %}
                         <li>
                             <div class="comment-card">
 
+                                <!-- Texto del comentario -->
                                 <blockquote class="card-text">
-                                    “ Gosh jaguar ostrich quail one excited dear hello and bound and the and bland moral
-                                    misheard
-                                    roadrunner “
+                                    “ {{ comentario.contenido|truncatewords:20 }} ”
                                 </blockquote>
 
+                                <!-- Perfil del usuario -->
                                 <div class="profile-card">
                                     <figure class="profile-banner img-holder">
-                                        <img src="{% static 'images/author-6.png' %}" width="32" height="32"
-                                            loading="lazy" alt="Jane Cooper">
+                                        {% if comentario.usuario and comentario.usuario.imagen_perfil %}
+                                        <img src="{{ comentario.usuario.imagen_perfil.url }}" width="32" height="32"
+                                            loading="lazy" alt="{{ comentario.usuario.username }}">
+                                        {% else %}
+                                        <img src="{% static 'images/default-profile.png' %}" width="32" height="32"
+                                            loading="lazy" alt="Perfil">
+                                        {% endif %}
                                     </figure>
 
                                     <div>
-                                        <p class="card-title">Jane Cooper</p>
+                                        <p class="card-title">
+                                            {% if comentario.usuario %}
+                                            {{ comentario.usuario.username }}
+                                            {% else %}
+                                            Anónimo
+                                            {% endif %}
+                                        </p>
 
-                                        <time class="card-date" datetime="2022-04-15">15 April 2022</time>
+                                        <time class="card-date" datetime="{{ comentario.fecha_creacion|date:'Y-m-d' }}">
+                                            {{ comentario.fecha_creacion|date:"d M Y" }}
+                                        </time>
                                     </div>
                                 </div>
 
                             </div>
                         </li>
-
-                        <li>
-                            <div class="comment-card">
-
-                                <blockquote class="card-text">
-                                    “ Gosh jaguar ostrich quail one excited dear hello and bound and the and bland moral
-                                    misheard
-                                    roadrunner “
-                                </blockquote>
-
-                                <div class="profile-card">
-                                    <figure class="profile-banner img-holder">
-                                        <img src="{% static 'images/author-7.png' %}" width="32" height="32"
-                                            loading="lazy" alt="Katen Doe">
-                                    </figure>
-
-                                    <div>
-                                        <p class="card-title">Katen Doe</p>
-
-                                        <time class="card-date" datetime="2022-04-15">15 April 2022</time>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="comment-card">
-
-                                <blockquote class="card-text">
-                                    “ Gosh jaguar ostrich quail one excited dear hello and bound and the and bland moral
-                                    misheard
-                                    roadrunner “
-                                </blockquote>
-
-                                <div class="profile-card">
-                                    <figure class="profile-banner img-holder">
-                                        <img src="{% static 'images/author-8.png' %}" width="32" height="32"
-                                            loading="lazy" alt="Barbara Cartland">
-                                    </figure>
-
-                                    <div>
-                                        <p class="card-title">Barbara Cartland</p>
-
-                                        <time class="card-date" datetime="2022-04-15">15 April 2022</time>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </li>
-
+                        {% empty %}
+                        <p class="empty-message">
+                            <ion-icon name="chatbubble-outline"></ion-icon>
+                            No hay comentarios recientes.
+                        </p>
+                        {% endfor %}
                     </ul>
-
                 </div>
                 <!-- instaPublish -->
                 <div class="card aside-card insta-card">

@@ -4,8 +4,8 @@ from django.contrib import messages
 from django.db.models.functions import Coalesce
 from django.db.models import Count, OuterRef, Subquery
 from django.contrib.auth.decorators import login_required
-from .forms import CustomUserCreationForm, CustomAuthenticationForm, ArticuloForm
-from .models import Articulo, Categoria, Like
+from .forms import CustomUserCreationForm, CustomAuthenticationForm, ArticuloForm, ComentarioForm
+from .models import Articulo, Categoria, Like, Comentario
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -76,6 +76,9 @@ def home(request):
         .order_by('-num_likes', '-fecha_creacion')
     )
     
+    # comments
+    comentarios_recientes = Comentario.objects.filter(aprobado=True).order_by('-fecha_creacion')[:5]
+    
     return render(request, 'pages/home.html', {
         'form': form,
         'articulos': articulos_filtrados.order_by('-fecha_creacion') if articulos_filtrados else articulos_generales.order_by('-fecha_creacion'),
@@ -86,6 +89,7 @@ def home(request):
         'categoria_nombre': categoria_nombre,
         'likes_usuario': list(likes_usuario),
         'articulos_populares': articulos_populares,
+        'comentarios_recientes': comentarios_recientes,
     })
     
 # Busqueda AJAX
@@ -163,6 +167,21 @@ def detalle_articulo(request, id_articulo):
 
     # Likes de artículo
     likes = Like.objects.filter(tipo_objeto='articulo', id_objeto=articulo.id_articulo)
+    
+    # Comentarios aprobados
+    comentarios = articulo.comentarios.filter(aprobado=True).order_by('-fecha_creacion')
+
+    # Formulario de comentario
+    if request.method == 'POST':
+        form = ComentarioForm(request.POST)
+        if form.is_valid():
+            comentario = form.save(commit=False)
+            comentario.articulo = articulo
+            comentario.usuario = request.user if request.user.is_authenticated else None
+            comentario.save()
+            return redirect('detalle_articulo', id_articulo=articulo.id_articulo)
+    else:
+        form = ComentarioForm()
 
     likes_usuario = []
     if request.user.is_authenticated:
@@ -178,6 +197,8 @@ def detalle_articulo(request, id_articulo):
         'articulo': articulo,
         'likes_usuario': list(likes_usuario),
         'usuarios_like': usuarios_like,
+        'comentarios': comentarios,
+        'form_comentario': form,
     })
 
 # Likes
