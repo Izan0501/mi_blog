@@ -28,7 +28,7 @@
                     </h2>
 
                     <p class="card-text">
-                        Don't miss out on the latest news about Travel tips, Hotels review, Food guide...
+                        No te pierdas lo mas popular entre nuestros lectores, entre diversas categorias y temas.
                     </p>
 
                     <div class="btn-group">
@@ -45,95 +45,48 @@
 
                 <div class="slider" data-slider>
                     <ul class="slider-list" data-slider-container>
-
+                        {% for articulo in articulos_populares %}
                         <li class="slider-item">
-                            <a href="#" class="slider-card">
+                            <a href="{% url 'detalle_articulo' articulo.id_articulo %}" class="slider-card">
 
                                 <figure class="slider-banner img-holder" style="--width: 507; --height: 618;">
-                                    <img src="{% static 'images/topic-1.jpg' %}" width="507" height="618" loading="lazy"
-                                        alt="Sport" class="img-cover">
+                                    {% if articulo.imagen_portada %}
+                                    <img src="{{ articulo.imagen_portada.url }}" width="507" height="618" loading="lazy"
+                                        alt="{{ articulo.titulo }}" class="img-cover">
+                                    {% else %}
+                                    <img src="{% static 'images/default-article.png' %}" width="507" height="618"
+                                        loading="lazy" alt="Sin imagen" class="img-cover">
+                                    {% endif %}
                                 </figure>
 
                                 <div class="slider-content">
-                                    <span class="slider-title">Relax</span>
+                                    <span class="slider-title">{{ articulo.titulo }}</span>
 
-                                    <p class="slider-subtitle">38 Articles</p>
+                                    <p class="slider-subtitle">
+                                        ❤️ {{ articulo.num_likes }} · {{ articulo.fecha_creacion|date:"d M Y" }}
+                                    </p>
+
+                                    <div class="author-info"
+                                        style="display:flex;align-items:center;gap:8px;margin-top:8px;">
+                                        {% if articulo.autor.imagen_perfil %}
+                                        <img src="{{ articulo.autor.imagen_perfil.url }}"
+                                            alt="{{ articulo.autor.username }}" class="author-avatar"
+                                            style="width:28px;height:28px;border-radius:50%;">
+                                        {% else %}
+                                        <img src="{% static 'images/default-profile.png' %}" alt="Perfil"
+                                            class="author-avatar" style="width:28px;height:28px;border-radius:50%;">
+                                        {% endif %}
+                                        <span class="author-name">{{ articulo.autor.username }}</span>
+                                    </div>
                                 </div>
 
                             </a>
                         </li>
-
-                        <li class="slider-item">
-                            <a href="#" class="slider-card">
-
-                                <figure class="slider-banner img-holder" style="--width: 507; --height: 618;">
-                                    <img src="{% static 'images/topic-2.jpeg' %}" width="507" height="618"
-                                        loading="lazy" alt="Travel" class="img-cover">
-                                </figure>
-
-                                <div class="slider-content">
-                                    <span class="slider-title">Travel</span>
-
-                                    <p class="slider-subtitle">63 Articles</p>
-                                </div>
-
-                            </a>
-                        </li>
-
-                        <li class="slider-item">
-                            <a href="#" class="slider-card">
-
-                                <figure class="slider-banner img-holder" style="--width: 507; --height: 618;">
-                                    <img src="{% static 'images/topic-3.jpeg' %}" width="507" height="618"
-                                        loading="lazy" alt="Design" class="img-cover">
-                                </figure>
-
-                                <div class="slider-content">
-                                    <span class="slider-title">Design</span>
-
-                                    <p class="slider-subtitle">78 Articles</p>
-                                </div>
-
-                            </a>
-                        </li>
-
-                        <li class="slider-item">
-                            <a href="#" class="slider-card">
-
-                                <figure class="slider-banner img-holder" style="--width: 507; --height: 618;">
-                                    <img src="{% static 'images/topic-4.jpeg' %}" width="507" height="618"
-                                        loading="lazy" alt="Movie" class="img-cover">
-                                </figure>
-
-                                <div class="slider-content">
-                                    <span class="slider-title">Net-Working</span>
-
-                                    <p class="slider-subtitle">125 Articles</p>
-                                </div>
-
-                            </a>
-                        </li>
-
-                        <li class="slider-item">
-                            <a href="#" class="slider-card">
-
-                                <figure class="slider-banner img-holder" style="--width: 507; --height: 618;">
-                                    <img src="{% static 'images/topic-5.jpg' %}"" width=" 507" height="618"
-                                        loading="lazy" alt="Lifestyle" class="img-cover">
-                                </figure>
-
-                                <div class="slider-content">
-                                    <span class="slider-title">Lifestyle</span>
-
-                                    <p class="slider-subtitle">78 Articles</p>
-                                </div>
-
-                            </a>
-                        </li>
-
+                        {% empty %}
+                        <p style="margin-left: 40%;" class="empty-message">No hay artículos con likes aún.</p>
+                        {% endfor %}
                     </ul>
                 </div>
-
             </div>
         </div>
     </section>
@@ -193,9 +146,23 @@
                                         <p class="card-subtitle">{{ articulo.fecha_creacion|date:"d M Y" }}</p>
                                     </div>
                                 </div>
+                                <div class="card-actions">
+                                    <a href="{% url 'toggle_like' 'articulo' articulo.id_articulo %}"
+                                        class="like-btn {% if articulo.id_articulo in likes_usuario %}liked{% endif %}">
+                                        <ion-icon name="heart"></ion-icon>
+                                    </a>
+                                    {% if usuarios_like %}
+                                    <span class="like-info">
+                                        {% for u in usuarios_like %}
+                                        {{ u.username }}{% if not forloop.last %}, {% endif %}
+                                        {% endfor %}
+                                        {% if likes.count > 2 %} y otros...{% endif %}
+                                    </span>
+                                    {% endif %}
+                                </div>
                             </div>
-                            <a style="width: 22%; margin-left: 0%; padding-left: 10px;"
-                                href="{% url 'detalle_articulo' articulo.id_articulo %}" class="btn-readmore">Leer
+                            <a class="btn-readmore" href="{% url 'detalle_articulo' articulo.id_articulo %}"
+                                class="btn-readmore">Leer
                                 más</a>
                         </div>
                     </div>
@@ -294,7 +261,6 @@
         {% endif %}
     </section>
     {% endif %}
-
     <!-- filterTagsEnds -->
 
     <!-- RecentPostSection -->
@@ -354,7 +320,7 @@
                     </li>
                     {% empty %}
                     <li>
-                        <p>No hay artículos publicados aún.</p>
+                        <p class="empty-message">No hay artículos publicados aún.</p>
                     </li>
                     {% endfor %}
                 </ul>
@@ -385,86 +351,59 @@
                     </h3>
 
                     <ul class="popular-list">
-
+                        {% for articulo in articulos_populares %}
                         <li>
                             <div class="popular-card">
 
                                 <figure class="card-banner img-holder" style="--width: 64; --height: 64;">
-                                    <img src="{% static 'images/popular-post-1.jpg' %}" width="64" height="64"
-                                        loading="lazy" alt="Creating is a privilege but it’s also a gift"
-                                        class="img-cover">
+                                    {% if articulo.imagen_portada %}
+                                    <img src="{{ articulo.imagen_portada.url }}" width="64" height="64" loading="lazy"
+                                        alt="{{ articulo.titulo }}" class="img-cover">
+                                    {% else %}
+                                    <img src="{% static 'images/default-article.png' %}" width="64" height="64"
+                                        loading="lazy" alt="Sin imagen" class="img-cover">
+                                    {% endif %}
                                 </figure>
 
                                 <div class="card-content">
-
                                     <h4 class="headline headline-4 card-title">
-                                        <a href="#" class="link hover-2">Creating is a privilege but it’s also a
-                                            gift</a>
+                                        <a href="{% url 'detalle_articulo' articulo.id_articulo %}"
+                                            class="link hover-2">
+                                            {{ articulo.titulo }}
+                                        </a>
                                     </h4>
 
-                                    <div class="warpper">
-                                        <p class="card-subtitle">15 mins read</p>
+                                    <p class="card-description">
+                                        {{ articulo.contenido|truncatewords:15 }}
+                                    </p>
 
-                                        <time class="publish-date" datetime="2022-04-15">15 April 2022</time>
+                                    <div class="warpper">
+                                        <p class="card-subtitle">❤️ {{ articulo.num_likes }}</p>
+                                        <time class="publish-date"
+                                            datetime="{{ articulo.fecha_creacion|date:'Y-m-d' }}">
+                                            {{ articulo.fecha_creacion|date:"d M Y" }}
+                                        </time>
                                     </div>
 
+                                    <div class="author-info"
+                                        style="display:flex;align-items:center;gap:8px;margin-top:8px;">
+                                        {% if articulo.autor.imagen_perfil %}
+                                        <img src="{{ articulo.autor.imagen_perfil.url }}"
+                                            alt="{{ articulo.autor.username }}" class="author-avatar"
+                                            style="width:28px;height:28px;border-radius:50%;">
+                                        {% else %}
+                                        <img src="{% static 'images/default-profile.png' %}" alt="Perfil"
+                                            class="author-avatar" style="width:28px;height:28px;border-radius:50%;">
+                                        {% endif %}
+                                        <span class="author-name">{{ articulo.autor.username }}</span>
+                                    </div>
                                 </div>
 
                             </div>
                         </li>
-
-                        <li>
-                            <div class="popular-card">
-
-                                <figure class="card-banner img-holder" style="--width: 64; --height: 64;">
-                                    <img src="{% static 'images/popular-post-2.jpg' %}" width="64" height="64"
-                                        loading="lazy" alt="Being unique is better than being perfect"
-                                        class="img-cover">
-                                </figure>
-
-                                <div class="card-content">
-
-                                    <h4 class="headline headline-4 card-title">
-                                        <a href="#" class="link hover-2">Being unique is better than being perfect</a>
-                                    </h4>
-
-                                    <div class="warpper">
-                                        <p class="card-subtitle">15 mins read</p>
-
-                                        <time class="publish-date" datetime="2022-04-15">15 April 2022</time>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="popular-card">
-
-                                <figure class="card-banner img-holder" style="--width: 64; --height: 64;">
-                                    <img src="{% static 'images/popular-post-3.jpg' %}" width="64" height="64"
-                                        loading="lazy" alt="Every day, in every city and town across the country"
-                                        class="img-cover">
-                                </figure>
-
-                                <div class="card-content">
-
-                                    <h4 class="headline headline-4 card-title">
-                                        <a href="#" class="link hover-2">Every day, in every city and town across the
-                                            country</a>
-                                    </h4>
-
-                                    <div class="warpper">
-                                        <p class="card-subtitle">15 mins read</p>
-
-                                        <time class="publish-date" datetime="2022-04-15">15 April 2022</time>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </li>
+                        {% empty %}
+                        <p class="empty-message">No hay artículos con likes aún.</p>
+                        {% endfor %}
                     </ul>
                 </div>
                 <!-- lastComments -->

@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout
 from django.contrib import messages
+from django.db.models.functions import Coalesce
+from django.db.models import Count, OuterRef, Subquery
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm, CustomAuthenticationForm, ArticuloForm
-from .models import Articulo, Categoria
+from .models import Articulo, Categoria, Like
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -52,6 +54,28 @@ def home(request):
         if categoria_obj:
             categoria_nombre = categoria_obj.nombre
 
+    # Likes del usuario
+    likes_usuario = Like.objects.filter(
+        usuario=request.user,
+        tipo_objeto='articulo'
+    ).values_list('id_objeto', flat=True)
+    
+    # Subquery que cuenta likes por artículo
+    likes_subquery = Like.objects.filter(
+        tipo_objeto='articulo',
+        id_objeto=OuterRef('id_articulo')
+    ).values('id_objeto').annotate(
+        count=Count('id_like')
+    ).values('count')
+    
+    # articulos populares
+    articulos_populares = (
+        Articulo.objects.filter(publicado=True)
+        .annotate(num_likes=Coalesce(Subquery(likes_subquery), 0))
+        .filter(num_likes__gt=0)
+        .order_by('-num_likes', '-fecha_creacion')
+    )
+    
     return render(request, 'pages/home.html', {
         'form': form,
         'articulos': articulos_filtrados.order_by('-fecha_creacion') if articulos_filtrados else articulos_generales.order_by('-fecha_creacion'),
@@ -59,15 +83,11 @@ def home(request):
         'articulos_generales': articulos_generales.order_by('-fecha_creacion'),
         'categorias': categorias,
         'categoria_activa': categoria_id,
-        'categoria_nombre': categoria_nombre
+        'categoria_nombre': categoria_nombre,
+        'likes_usuario': list(likes_usuario),
+        'articulos_populares': articulos_populares,
     })
     
-    # Detalle de artículo
-def detalle_articulo(request, id_articulo):
-    articulo = get_object_or_404(Articulo, id_articulo = id_articulo)
-    return render(request, 'pages/detalle_articulo.html', {'articulo': articulo})
-
-
 # Busqueda AJAX
 @login_required
 def search_ajax(request):
@@ -84,7 +104,6 @@ def search_ajax(request):
         'categorias_resultados': categorias_resultados,
         'query': query
     })
-
 
 # USER VIEWS
 # Registro de usuario
@@ -141,6 +160,44 @@ def logout_view(request):
 def detalle_articulo(request, id_articulo):
     articulo = get_object_or_404(Articulo, id_articulo=id_articulo)
     return render(request, 'pages/detalle_articulo.html', {'articulo': articulo})
+
+# Detalle de artículo
+def detalle_articulo(request, id_articulo):
+    articulo = get_object_or_404(Articulo, id_articulo=id_articulo)
+
+    # Likes de artículo
+    likes = Like.objects.filter(tipo_objeto='articulo', id_objeto=articulo.id_articulo)
+
+    likes_usuario = []
+    if request.user.is_authenticated:
+        likes_usuario = Like.objects.filter(
+            usuario=request.user,
+            tipo_objeto='articulo'
+        ).values_list('id_objeto', flat=True)
+
+    # 2 usuarios distintos que dieron like
+    usuarios_like = [like.usuario for like in likes[:2]]
+
+    return render(request, 'pages/detalle_articulo.html', {
+        'articulo': articulo,
+        'likes_usuario': list(likes_usuario),
+        'usuarios_like': usuarios_like,
+    })
+
+# Likes
+@login_required
+def toggle_like(request, tipo_objeto, id_objeto):
+    like, created = Like.objects.get_or_create(
+        usuario=request.user,
+        tipo_objeto=tipo_objeto,
+        id_objeto=id_objeto
+    )
+    if not created:
+        like.delete()
+    return redirect(request.META.get('HTTP_REFERER', 'home'))
+
+
+
 
 # Vista protegida: lista de usuarios (solo admin)
 # @login_required

@@ -5,7 +5,7 @@
 {% block content %}
 <section class="detalle-articulo glass-container">
     <div class="detalle-header">
-        <h1 class="detalle-title">{{ articulo.titulo }}</h1>
+        <h1 class="headline headline-2 ">{{ articulo.titulo }}</h1>
         <span class="detalle-category">#{{ articulo.categoria.nombre }}</span>
     </div>
 
@@ -26,13 +26,30 @@
 
     <div class="detalle-body">
         {% if articulo.imagen_portada %}
-        <img style="border-radius: 10px;" src="{{ articulo.imagen_portada.url }}" alt="{{ articulo.titulo }}" class="detalle-image">
+        <img style="border-radius: 10px;" src="{{ articulo.imagen_portada.url }}" alt="{{ articulo.titulo }}"
+            class="detalle-image">
         {% endif %}
-        <p class="detalle-content">{{ articulo.contenido|linebreaks }}</p>
-    </div>
+        <div class="detalle-content">
+            <p>{{ articulo.contenido|linebreaks }}</p>
+            <div class="card-actions">
+                <a href="{% url 'toggle_like' 'articulo' articulo.id_articulo %}"
+                    class="like-btn {% if articulo.id_articulo in likes_usuario %}liked{% endif %}">
+                    <ion-icon name="heart"></ion-icon>
+                </a>
+                {% if usuarios_like %}
+                <span class="like-info">
+                    {% for u in usuarios_like %}
+                    {{ u.username }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                    {% if likes.count > 2 %} y otros...{% endif %}
+                </span>
+                {% endif %}
+            </div>
+        </div>
 
+    </div>
     <div class="detalle-footer">
-        <a href="{% url 'home' %}" class="btn-back">⬅ Volver al Home</a>
+        <a class="btn-readmore" href="{% url 'home' %}" class="btn-back">⬅ Home</a>
     </div>
 </section>
 {% endblock %}

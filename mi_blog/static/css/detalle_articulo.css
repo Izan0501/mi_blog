@@ -1,10 +1,33 @@
+:root {
+
+  /** Text colors */
+  --text-columbia-blue: hsla(199, 69%, 84%, 1);
+
+  /** Font size */
+  --fontSize-2: 2.0rem;
+
+  /** Line height */
+  --lineHeight-1: 1.3;
+
+}
+
+.headline {
+  color: var(--text-columbia-blue);
+  line-height: var(--lineHeight-1);
+}
+
+.headline-2 {
+  font-size: var(--fontSize-2);
+}
+
+
 .detalle-articulo {
   background: rgba(255, 255, 255, 0.08); 
   backdrop-filter: blur(18px) saturate(180%);
   -webkit-backdrop-filter: blur(18px) saturate(180%);
   border-radius: 16px;
   padding: 2rem;
-  margin: 2rem auto;
+  margin: 5rem auto !important;
   max-width: 900px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.35);
   border: 1px solid rgba(255, 255, 255, 0.18); 
@@ -61,14 +84,36 @@
 }
 
 .detalle-content {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: #fff;
+  display: flex;
+  flex-direction:row;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 14px;
+  padding: 1.5rem 1.5rem;
+  margin: 1.5rem 0;
+  color: rgba(255,255,255,0.9);
+  font-size: 1rem;
+  line-height: 1.7;
+  font-weight: 400;
+  text-align: justify;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  transition: all 0.3s ease;
 }
+
+/* efecto hover sutil */
+.detalle-content:hover {
+  border-color: rgba(255,77,109,0.4);
+  box-shadow: 0 8px 20px rgba(255,77,109,0.35);
+}
+
 
 .detalle-footer {
   margin-top: 2rem;
   text-align: right;
+  align-items: center;
 }
 
 .btn-back {
@@ -80,6 +125,7 @@
   font-weight: 600;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   width: 20%;
+  align-items: center;
 }
 
 .btn-back:hover {
@@ -87,6 +133,73 @@
   box-shadow: 0 6px 20px rgba(0,224,255,0.4);
 }
 
+.btn-readmore {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255,255,255,0.2) !important;
+  border-radius: 12px !important;
+  padding: 0.6rem 1.2rem !important;
+  color: rgba(255,255,255,0.85) !important;
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  line-height: 1.4 !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25) !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer !important;
+}
+
+.btn-readmore:hover {
+  color: #fff;
+  background: rgba(77, 216, 255, 0.25) !important;
+  border-color: rgba(77, 181, 255, 0.4) !important;
+  box-shadow: 0 6px 16px rgba(77, 246, 255, 0.35) !important;
+  transform: translateY(-2px) !important;
+}
+
+.like-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: rgba(255,255,255,0.6);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.like-btn ion-icon {
+  font-size: 1.6rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.like-btn:hover {
+  color: #ff4d6d;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(255,77,109,0.4);
+}
+
+/* Estado cuando el usuario ya dio like */
+.like-btn.liked {
+  color: #ff4d6d;
+  animation: pulse 0.4s ease;
+}
+
+.like-info {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.75);
+  margin-left: 8px;
+  font-style: italic;
+}
 /*responsive part  */
 .detalle-title {
   font-size: clamp(1.5rem, 2.5vw + 1rem, 2.25rem);
@@ -150,7 +263,7 @@
     justify-content: space-between;
     align-items: center;
   }
-
+  
   .detalle-meta {
     flex-direction: row;
     align-items: center;

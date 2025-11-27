@@ -8,6 +8,7 @@ urlpatterns = [
     path('profile/', views.profile_view, name='profile'),
     path('logout/', views.logout_view, name='logout'),
     path('articulo/<int:id_articulo>/', views.detalle_articulo, name='detalle_articulo'),
+    path('like/<str:tipo_objeto>/<int:id_objeto>/', views.toggle_like, name='toggle_like'),
     # ruta de busqueda AJAX
     path('search-ajax/', views.search_ajax, name='search_ajax'),
 ]
