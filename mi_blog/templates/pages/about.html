@@ -1,0 +1,55 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+{% block title %} About Us {% endblock %}
+{% block content %}
+<div class="about-wrapper">
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <h1 class="hero-title">Sobre Nosotros</h1>
+        <p class="hero-subtitle">Transformando ideas en experiencias digitales premium ✨</p>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="about-section">
+        <h2 class="section-title">Nuestra Misión 🚀</h2>
+        <p class="section-text">
+            Crear soluciones digitales que combinen <strong>tecnología moderna</strong>, <strong>diseño visual</strong>
+            y <strong>usabilidad</strong>.
+            Queremos que cada proyecto sea competitivo, escalable y memorable.
+        </p>
+    </section>
+
+    <!-- Values Section -->
+    <section class="about-section values">
+        <h2 class="section-title">Nuestros Valores 💎</h2>
+        <div class="values-grid">
+            <div class="value-card">✨ Innovación constante</div>
+            <div class="value-card">🤝 Colaboración auténtica</div>
+            <div class="value-card">🎨 Excelencia visual</div>
+            <div class="value-card">⚡ Escalabilidad y rendimiento</div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="about-section team">
+        <h2 class="section-title">Nuestro Equipo 👥</h2>
+        <div class="team-grid">
+            <div class="team-card">
+                <img src="{% static 'images/IZ.jpg' %}" alt="Ivo" class="team-avatar">
+                <h3 class="team-name">Ivo Zanacchi</h3>
+                <p class="team-role">Fullstack Developer</p>
+                <p class="team-bio">Apasionado por React, MySQL, Python y diseño UI/UX premium. Perfeccionista y
+                    orientado a
+                    resultados.</p>
+                <p class="team-role">Contacto: ivozanacchi501@gmail.com</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="about-footer">
+        <p class="footer-text">© {{ year }} Mi Blog. Todos los derechos reservados.</p>
+    </footer>
+</div>
+{% endblock %}

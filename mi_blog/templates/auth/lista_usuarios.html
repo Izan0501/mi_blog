@@ -1,0 +1,46 @@
+{% extends "pages/base.html" %}
+
+{% load static %}
+
+{% block title %} Usuarios {% endblock %}
+
+{% block content %}
+
+{% if messages %}
+<div class="messages-container">
+    {% for message in messages %}
+    <div class="message {{ message.tags }}">
+        {{ message }}
+        <button class="close-btn" onclick="this.parentElement.style.display='none'">&times;</button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="users-wrapper">
+    <h2 class="users-title">👥 Usuarios Registrados</h2>
+    <ul class="users-list">
+        {% for usuario in usuarios %}
+        <li class="user-card">
+            <div class="user-meta">
+                {% if usuario.imagen_perfil %}
+                <img src="{{ usuario.imagen_perfil.url }}" alt="{{ usuario.username }}" class="user-avatar">
+                {% else %}
+                <img src="{% static 'images/default-profile.png' %}" alt="Perfil" class="user-avatar">
+                {% endif %}
+                <span class="user-name">{{ usuario.username }}</span>
+                <span class="user-email">{{ usuario.email }}</span>
+                <span class="user-rol">{{ usuario.rol }}</span>
+            </div>
+            <div class="user-actions">
+                <form method="post" action="{% url 'eliminar_usuario' usuario.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-delete">Eliminar</button>
+                </form>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

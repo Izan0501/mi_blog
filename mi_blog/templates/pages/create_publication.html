@@ -1,0 +1,52 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+
+{% block title %} Crear Publicación {% endblock %}
+
+{% block content %}
+<div id="publicar" class="crear-articulo-container">
+    <h2>Crear nuevo artículo</h2>
+
+    {% if messages %}
+    <div class="messages-container">
+        {% for message in messages %}
+        <div class="message {{ message.tags }}">
+            {{ message }}
+            <button class="close-btn" onclick="this.parentElement.style.display='none'">&times;</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data" class="crear-articulo-form">
+        {% csrf_token %}
+
+        <div class="form-group">
+            {{ form.titulo.label_tag }}
+            {{ form.titulo }}
+        </div>
+
+        <div class="form-group">
+            {{ form.contenido.label_tag }}
+            {{ form.contenido }}
+        </div>
+
+        <div class="form-group">
+            {{ form.imagen_portada.label_tag }}
+            {{ form.imagen_portada }}
+        </div>
+
+        <div class="form-group">
+            {{ form.categoria.label_tag }}
+            {{ form.categoria }}
+        </div>
+
+        <div class="form-group">
+            {{ form.nueva_categoria.label_tag }}
+            {{ form.nueva_categoria }}
+        </div>
+
+        <button type="submit" class="btn-publicar">Publicar</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,58 +1,74 @@
 1. Autenticación
 Register / Login / Profile
 
-Probar registro de usuario.
+Registro de usuario con validación de datos.
 
-Iniciar sesión.
+Inicio de sesión con username o email.
 
-Acceder al perfil y verificar edición de datos.
+Acceso al perfil con posibilidad de editar datos personales.
+
+Admin
+
+El admin se crea con rol "admin" y tiene privilegios especiales.
+
+La creacion debe realizarse mediante la ejecucion del script create_admin.py (python create_admin.py en la terminal).En el se encontraran los datos del admin a crear, los cuales el dueño del proyecto podra cambiarlos a gusto
+
+Desde su perfil puede acceder a:
+
+Lista de usuarios: ver todos los usuarios registrados y eliminarlos.
+
+Lista de publicaciones: ver todas las publicaciones de todos los usuarios y eliminarlas.
+
+Los usuarios con rol "admin" no aparecen en los resultados de búsqueda AJAX.
 
 2. Home
-Vista principal (home)
+Vista principal con:
 
-Se renderiza el formulario de creación de artículos al final de la página.
+Listado de artículos publicados en cards con diseño profesional.
 
-Se listan los artículos publicados en cards con diseño profesional.
+Navbar con link “Publicar” que lleva al formulario de creación.
 
-Navbar con link “Publicar” lleva al formulario (#publicar).
+Filtrado dinámico de categorías:
 
-Filtrado de categorías:
-
-Al seleccionar una categoría, se muestran solo los artículos correspondientes en cards dentro del contenedor filtrado.
+Al seleccionar una categoría, se muestran solo los artículos correspondientes.
 
 Se muestra el nombre de la categoría activa.
 
 Implementado:
 
-Búsqueda con AJAX que permite filtrar categorías y usuarios en tiempo real desde la barra de búsqueda.
+Búsqueda con AJAX:
 
-Al hacer click en una categoría buscada, la página baja automáticamente hasta el contenedor #articulos-filtrados donde se muestran sus artículos. Al hacer click en un perfil, la pagina redirigira hacia el perfil del usuario seleccionado, donde se encuentran sus publicaciones realizadas (user_profile).
+Filtra categorías y usuarios en tiempo real.
 
-Extras ya implementados:
+Excluye usuarios con rol "admin".
+
+Al hacer clic en una categoría buscada → scroll automático al contenedor #articulos-filtrados.
+
+Al hacer clic en un perfil → redirección al perfil del usuario seleccionado con sus publicaciones.
+
+Extras:
 
 Botón “Back to Top” funcional.
 
 Diseño mobile-first optimizado para pantallas pequeñas.
 
 3. Crear artículo
-Formulario de creación (ArticuloForm)
+Formulario de creación (ArticuloForm) con inputs:
 
-Probar inputs: título, contenido, imagen, categoría.
+Título, contenido, imagen, categoría.
 
-Verificar estilos refinados: inputs compactos, textarea amplio, file input estilizado.
+Al enviar:
 
-Al enviar, se guarda el artículo y se muestra en el listado.
+Se guarda el artículo y se muestra en el listado.
 
-Confirmar que se guarda con la categoría elegida o con nueva categoría creada.
+Se guarda con la categoría elegida o con nueva categoría creada.
 
-Próximamente:
-
-Mejoras visuales y funcionales en el formulario (validaciones, UX, feedback visual).
+Página dedicada /publicar/ con formulario premium.
 
 4. Categorías
-Menú desplegable de categorías
+Menú desplegable de categorías.
 
-Confirmar que el artículo se guarda con la categoría elegida.
+Confirmación de que el artículo se guarda con la categoría elegida.
 
 Filtrado dinámico en cards dentro del contenedor #articulos-filtrados.
 
@@ -61,39 +77,71 @@ Implementado:
 Scroll automático hacia la sección filtrada al hacer clic en una categoría buscada.
 
 5. Interacción en publicaciones
-Comentarios (implementado)
-Los usuarios pueden dejar comentarios (en el template detalle_producto) en cada artículo a traves de un input, seguido de clickear en el boton "comentar".
+Comentarios:
 
-Likes (implementado)
-Se agregó un sistema de “me gusta” para cada publicación.
+Los usuarios pueden dejar comentarios en el detalle del artículo.
 
-El botón de corazón funciona como toggle:
+Likes:
 
-Si el artículo no tiene like del usuario → el corazón aparece gris.
+Botón de corazón toggle:
 
-Al hacer clic → se guarda el like, el corazón se vuelve rojo con animación estilo Instagram.
+Gris → sin like.
 
-Si el artículo ya tiene like del usuario → el corazón aparece rojo.
+Rojo con animación → con like.
 
-Al hacer clic nuevamente → se elimina el like y el corazón vuelve a gris.
+Al volver a hacer clic → se elimina el like.
 
 En el Home:
 
-Se muestran los artículos populares ordenados por cantidad de likes.
+Se muestran artículos populares ordenados por cantidad de likes.
 
-Solo aparecen en el slider/lista los artículos que tienen al menos un like.
+Solo aparecen en el slider/lista los artículos con al menos un like.
 
 En el detalle del artículo:
 
-El corazón también funciona como toggle (dar o quitar like).
+Corazón toggle igual que en Home.
 
-Al lado del corazón se muestran hasta 2 usuarios que dieron like a ese artículo.
+Se muestran hasta 2 usuarios que dieron like.
 
-Si hay más de 2 usuarios, se indica con “y otros…”.
+Si hay más de 2 → “y otros…”.
 
-Todo integrado con estilos glassmorphism y animaciones de pulso para reforzar la experiencia visual.
+Edición de publicaciones:
 
-6. Footer (próximamente)
-Rediseño del footer con enlaces útiles, redes sociales, y estilo glassmorphism.
+Cada usuario puede editar sus propias publicaciones desde su perfil.
 
-Inclusión de créditos, contacto y navegación rápida.
+Botón Editar junto a Ver y Eliminar.
+
+Redirige a /articulo/<id>/editar/ con formulario idéntico al de creación, precargado con los datos.
+
+Feedback visual con mensajes premium.
+
+6. Funcionalidades Admin (nuevo)
+Usuarios:
+
+Ver todos los usuarios registrados.
+
+Eliminar usuarios desde la lista.
+
+Publicaciones:
+
+Ver todas las publicaciones de todos los usuarios.
+
+Eliminar publicaciones desde la lista.
+
+Perfil Admin:
+
+Links visibles solo para admin:
+
+“Ver todos los usuarios”.
+
+“Ver todas las publicaciones”.
+
+7. Footer (próximamente)
+Rediseño con más enlaces y redes sociales.
+
+Inclusión de formulario para suscripción a newsletter.
+
+Inclusión de créditos y contacto.
+
+8. Próximamente
+Sistema de mensajería: usuarios podrán interactuar entre sí por medio de la web.

@@ -26,7 +26,13 @@
         </div>
         <div class="profile-info">
             <h1 class="profile-name">{{ user.username }}</h1>
-            <a href="#" class="btn-edit" onclick="openModal()">Editar perfil</a>
+            {% if user.rol == "admin" %}
+            <a href="{% url 'lista_usuarios' %}" class="btn-admin view-btn">Ver Usuarios</a>
+            {% endif %}
+            {% if user.rol == "admin" %}
+            <a href="{% url 'publicaciones_usuarios' %}" class="btn-admin">Ver publicaciones</a>
+            {% endif %}
+            <a href="#" class="btn-edit1" onclick="openModal()">Editar perfil</a>
             <a href="{% url 'logout' %}" class="btn-logout">Cerrar sesión</a>
         </div>
     </header>
@@ -41,6 +47,7 @@
                 <p>{{ articulo.contenido|truncatewords:30 }}</p>
                 <div class="post-actions">
                     <a href="{% url 'detalle_articulo' articulo.id_articulo %}" class="btn-view">Ver</a>
+                    <a href="{% url 'editar_publicacion' articulo.id_articulo %}" class="btn-edit">Editar</a>
                     <form method="post" action="{% url 'eliminar_articulo' articulo.id_articulo %}">
                         {% csrf_token %}
                         <button type="submit" class="btn-delete">Eliminar</button>
@@ -55,7 +62,6 @@
             {% endfor %}
         </ul>
     </section>
-
 </div>
 
 <!-- Modal -->

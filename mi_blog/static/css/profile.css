@@ -86,7 +86,7 @@
 }
 
 /* Botones */
-.btn-edit, .btn-logout {
+.btn-edit1, .btn-logout {
   display: inline-block;
   padding: 0.7rem 1.4rem;
   border-radius: 12px;
@@ -95,15 +95,52 @@
   transition: all 0.3s ease;
 }
 
-.btn-edit {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.25);
+.btn-admin {
+  display: inline-block;
+  padding: 0.7rem 1.4rem;
+  border-radius: 12px;
+  font-weight: 600;
+  background: rgba(0,255,150,0.25);
+  border: 1px solid rgba(0,255,150,0.4);
+  color: var(--text-white);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.btn-admin:hover {
+  background: rgba(0,255,150,0.4);
+  transform: translateY(-2px);
+}
+
+.btn-edit1 {
+  background: rgba(255,255,255,0.08) !important;
+  border: 1px solid rgba(255,255,255,0.25) !important;
   color: var(--text-white);
 }
 
+.btn-edit1:hover {
+  background: rgba(255,255,255,0.15) !important;
+  transform: translateY(-2px) !important;
+}
+
+.btn-edit {
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: rgba(0,150,255,0.25);
+  border: 1px solid rgba(0,150,255,0.4);
+  color: var(--text-white);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
 .btn-edit:hover {
-  background: rgba(255,255,255,0.15);
+  background: rgba(0,150,255,0.4);
   transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,150,255,0.25);
 }
 
 .btn-logout {
@@ -284,7 +321,11 @@
   background: rgba(255,255,255,0.1);
   border: 1px solid rgba(255,255,255,0.25);
   color: var(--text-white);
-  width: 14%;
+  width: 3.7%;
+}
+
+.view-btn {
+  width: 34% !important;
 }
 
 .btn-view:hover {
@@ -301,8 +342,8 @@
   background: rgba(255,0,0,0.4);
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 768px) {
     .btn-view {
-        width: 3.7%;
+      width: 3.7%;
     }
 }

@@ -1,0 +1,43 @@
+{% extends "pages/base.html" %}
+
+{% load static %}
+
+{% block title %} publicaciones {% endblock %}
+
+{% block content %}
+
+{% if messages %}
+<div class="messages-container">
+    {% for message in messages %}
+    <div class="message {{ message.tags }}">
+        {{ message }}
+        <button class="close-btn" onclick="this.parentElement.style.display='none'">&times;</button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="posts-wrapper">
+    <h2 class="posts-title">📰 Publicaciones de todos los usuarios</h2>
+    <ul class="posts-list">
+        {% for articulo in publicaciones %}
+        <li class="post-card">
+            <div class="post-meta">
+                <h3 class="post-title">{{ articulo.titulo }}</h3>
+                <p class="post-author">Autor: {{ articulo.autor.username }}</p>
+                <p class="post-content">{{ articulo.contenido|truncatewords:25 }}</p>
+            </div>
+            <div class="post-actions">
+                <form method="post" action="{% url 'eliminar_publicacion_admin' articulo.id_articulo %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-delete">Eliminar</button>
+                </form>
+            </div>
+        </li>
+        {% empty %}
+        <p class="empty-message">No hay publicaciones registradas.</p>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
