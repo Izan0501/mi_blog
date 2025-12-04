@@ -54,8 +54,7 @@ class Articulo(models.Model):
 
     def __str__(self):
         return self.titulo
-
-# Etiquetas
+    
 class Etiqueta(models.Model):
     id_etiqueta = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=50, unique=True)
@@ -78,6 +77,24 @@ class ArticuloEtiqueta(models.Model):
     def __str__(self):
         return f"{self.articulo.titulo} - {self.etiqueta.nombre}"
 
+# Mensajes
+class Mensaje(models.Model):
+    remitente = models.ForeignKey(
+        settings.AUTH_USER_MODEL,   # 👈 referencia correcta
+        on_delete=models.CASCADE,
+        related_name="mensajes_enviados"
+    )
+    destinatario = models.ForeignKey(
+        settings.AUTH_USER_MODEL,   # 👈 referencia correcta
+        on_delete=models.CASCADE,
+        related_name="mensajes_recibidos"
+    )
+    contenido = models.TextField()
+    fecha_envio = models.DateTimeField(auto_now_add=True)
+    leido = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"De {self.remitente} a {self.destinatario} - {self.contenido[:30]}"
 # Comentarios
 class Comentario(models.Model):
     id_comentario = models.AutoField(primary_key=True)

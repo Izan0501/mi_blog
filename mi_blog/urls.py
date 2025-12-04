@@ -18,6 +18,9 @@ urlpatterns = [
     path('usuarios/eliminar/<int:user_id>/', views.eliminar_usuario, name='eliminar_usuario'),
     path('publicaciones/', views.publicaciones_usuarios, name='publicaciones_usuarios'),
     path('publicaciones/eliminar/<int:articulo_id>/', views.eliminar_publicacion_admin, name='eliminar_publicacion_admin'),
+    path('mensajes/', views.bandeja_entrada, name='bandeja_entrada'),
+    path('mensajes/enviar/', views.enviar_mensaje, name='enviar_mensaje'),
+
 
     # ruta de busqueda AJAX
     path('search-ajax/', views.search_ajax, name='search_ajax'),

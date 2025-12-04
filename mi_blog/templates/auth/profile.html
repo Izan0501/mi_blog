@@ -32,6 +32,7 @@
             {% if user.rol == "admin" %}
             <a href="{% url 'publicaciones_usuarios' %}" class="btn-admin">Ver publicaciones</a>
             {% endif %}
+            <li><a class="btn-edit1" href="{% url 'bandeja_entrada' %}">Mensajes</a></li>
             <a href="#" class="btn-edit1" onclick="openModal()">Editar perfil</a>
             <a href="{% url 'logout' %}" class="btn-logout">Cerrar sesión</a>
         </div>

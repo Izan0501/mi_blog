@@ -92,6 +92,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'mi_blog.CustomUser'
+
 LOGIN_URL = '/login/'
 
 MESSAGE_TAGS = {

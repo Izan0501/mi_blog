@@ -3,6 +3,8 @@ from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.db.models.functions import Coalesce
 from django.db.models import Count, OuterRef, Subquery
+from .forms import MensajeForm
+from .models import Mensaje
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import CustomUserCreationForm, CustomAuthenticationForm, ArticuloForm, ComentarioForm
 from .models import Articulo, Categoria, Like, Comentario
@@ -332,18 +334,30 @@ def eliminar_publicacion_admin(request, articulo_id):
         return redirect('publicaciones_usuarios')
 # ARTICLE - PUBLICATION VIEWS END
 
+# messages views start
+@login_required
+def bandeja_entrada(request):
+    mensajes = Mensaje.objects.filter(destinatario=request.user).order_by('-fecha_envio')
+    return render(request, 'mensajes/bandeja_entrada.html', {'mensajes': mensajes})
 
+@login_required
+def enviar_mensaje(request):
+    # Excluir admins y al propio usuario
+    usuarios = User.objects.exclude(rol="admin").exclude(id=request.user.id)
 
+    if request.method == 'POST':
+        form = MensajeForm(request.POST)
+        form.fields['destinatario'].queryset = usuarios
+        if form.is_valid():
+            mensaje = form.save(commit=False)
+            mensaje.remitente = request.user
+            mensaje.save()
+            messages.success(request, "Mensaje enviado con éxito ✨")
+            return redirect('bandeja_entrada')
+    else:
+        form = MensajeForm()
+        form.fields['destinatario'].queryset = usuarios
 
-# Vista protegida: lista de usuarios (solo admin)
-# @login_required
-# def usuario_list(request):
-#     from django.contrib.auth import get_user_model
-#     User = get_user_model()
-#     if not request.user.is_superuser:
-#         messages.warning(request, "No tienes permisos para ver esta sección ⚠️")
-#         return redirect('home')
-#     usuarios = User.objects.all()
-#     return render(request, 'auth/usuario_list.html', {'usuarios': usuarios})
+    return render(request, 'mensajes/enviar_mensaje.html', {'form': form})
 
-# USER VIEWS ENDS
+# messages views end

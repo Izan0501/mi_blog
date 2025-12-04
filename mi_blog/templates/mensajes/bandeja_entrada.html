@@ -1,0 +1,35 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+{% block content %}
+<section class="mensajes-wrapper">
+  <div class="mensajes-header">
+    <h2>Bandeja de Entrada 📩</h2>
+    <a href="{% url 'enviar_mensaje' %}" class="btn-primary">+ Nuevo Mensaje</a>
+  </div>
+
+  {% if mensajes %}
+    <ul class="mensajes-grid">
+      {% for mensaje in mensajes %}
+        <li class="mensaje-card {% if not mensaje.leido %}no-leido{% endif %}">
+          <div class="mensaje-top">
+            <div class="mensaje-user">
+              {% if mensaje.remitente.imagen_perfil %}
+                <img src="{{ mensaje.remitente.imagen_perfil.url }}" alt="Avatar" class="mensaje-avatar">
+              {% else %}
+                <img src="{% static 'images/default-profile.png' %}" alt="Avatar" class="mensaje-avatar">
+              {% endif %}
+              <span class="mensaje-username">{{ mensaje.remitente.username }}</span>
+            </div>
+            <span class="mensaje-fecha">{{ mensaje.fecha_envio|date:"d/m/Y H:i" }}</span>
+          </div>
+          <div class="mensaje-body">
+            <p>{{ mensaje.contenido|truncatewords:25 }}</p>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-message">✨ No tienes mensajes aún. ¡Envía el primero!</p>
+  {% endif %}
+</section>
+{% endblock %}
