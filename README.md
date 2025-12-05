@@ -1,147 +1,183 @@
 1. Autenticación
-Register / Login / Profile
+Registro/Login/Perfil
 
-Registro de usuario con validación de datos.
+Registro: Validación de datos, imagen de perfil opcional, rol por defecto “usuario”.
 
-Inicio de sesión con username o email.
+Login: Con username o email.
 
-Acceso al perfil con posibilidad de editar datos personales.
+Perfil: Visualización y edición de datos personales, avatar premium.
 
 Admin
 
-El admin se crea con rol "admin" y tiene privilegios especiales.
+Creación: Se crea con rol “admin” mediante python create_admin.py, con datos configurables por el dueño del proyecto.
 
-La creacion debe realizarse mediante la ejecucion del script create_admin.py (python create_admin.py en la terminal).En el se encontraran los datos del admin a crear, los cuales el dueño del proyecto podra cambiarlos a gusto
+Privilegios: Acceso a listas globales de usuarios y publicaciones, con capacidad de eliminación.
 
-Desde su perfil puede acceder a:
-
-Lista de usuarios: ver todos los usuarios registrados y eliminarlos.
-
-Lista de publicaciones: ver todas las publicaciones de todos los usuarios y eliminarlas.
-
-Los usuarios con rol "admin" no aparecen en los resultados de búsqueda AJAX.
+Búsqueda AJAX: Usuarios con rol “admin” no aparecen en resultados.
 
 2. Home
-Vista principal con:
+Listado principal: Cards de artículos con diseño premium.
 
-Listado de artículos publicados en cards con diseño profesional.
+Navbar: Link “Publicar” hacia el formulario de creación.
 
-Navbar con link “Publicar” que lleva al formulario de creación.
+Filtrado dinámico de categorías
 
-Filtrado dinámico de categorías:
+Selección: Muestra artículos de la categoría seleccionada, indicando categoría activa.
 
-Al seleccionar una categoría, se muestran solo los artículos correspondientes.
+Búsqueda AJAX
 
-Se muestra el nombre de la categoría activa.
+Usuarios y categorías: Filtra en tiempo real.
 
-Implementado:
+Exclusión: Omite usuarios con rol “admin”.
 
-Búsqueda con AJAX:
+Acciones: Click en categoría → scroll a #articulos-filtrados; click en perfil → redirección al perfil del usuario con sus publicaciones.
 
-Filtra categorías y usuarios en tiempo real.
+Extras
 
-Excluye usuarios con rol "admin".
+Back to Top: Botón funcional.
 
-Al hacer clic en una categoría buscada → scroll automático al contenedor #articulos-filtrados.
-
-Al hacer clic en un perfil → redirección al perfil del usuario seleccionado con sus publicaciones.
-
-Extras:
-
-Botón “Back to Top” funcional.
-
-Diseño mobile-first optimizado para pantallas pequeñas.
+Mobile-first: Diseño optimizado.
 
 3. Crear artículo
-Formulario de creación (ArticuloForm) con inputs:
+Formulario (ArticuloForm): Título, contenido, imagen, categoría.
 
-Título, contenido, imagen, categoría.
+Guardado:
 
-Al enviar:
+Publicación: Se guarda y aparece en el listado.
 
-Se guarda el artículo y se muestra en el listado.
+Categoría: Usa existente o crea nueva si corresponde.
 
-Se guarda con la categoría elegida o con nueva categoría creada.
-
-Página dedicada /publicar/ con formulario premium.
+Página dedicada: /publicar/ con interfaz premium.
 
 4. Categorías
-Menú desplegable de categorías.
+Menú desplegable: Selección clara de categorías.
 
-Confirmación de que el artículo se guarda con la categoría elegida.
+Confirmación: Los artículos se guardan con la categoría elegida.
 
-Filtrado dinámico en cards dentro del contenedor #articulos-filtrados.
+Filtrado dinámico: Cards en #articulos-filtrados.
 
-Implementado:
-
-Scroll automático hacia la sección filtrada al hacer clic en una categoría buscada.
+Scroll automático: Al hacer clic en una categoría buscada.
 
 5. Interacción en publicaciones
-Comentarios:
+Comentarios: En detalle del artículo.
 
-Los usuarios pueden dejar comentarios en el detalle del artículo.
+Likes (toggle):
 
-Likes:
+Estados: Gris (sin like), rojo animado (con like).
 
-Botón de corazón toggle:
+Comportamiento: Segundo click elimina like.
 
-Gris → sin like.
+Home:
 
-Rojo con animación → con like.
+Populares: Orden por cantidad de likes.
 
-Al volver a hacer clic → se elimina el like.
+Regla: Solo artículos con al menos un like aparecen en slider/lista.
 
-En el Home:
+Detalle del artículo:
 
-Se muestran artículos populares ordenados por cantidad de likes.
+Toggle corazón: Igual que Home.
 
-Solo aparecen en el slider/lista los artículos con al menos un like.
-
-En el detalle del artículo:
-
-Corazón toggle igual que en Home.
-
-Se muestran hasta 2 usuarios que dieron like.
-
-Si hay más de 2 → “y otros…”.
+Visualización: Hasta 2 usuarios que dieron like, “y otros…” si hay más.
 
 Edición de publicaciones:
 
-Cada usuario puede editar sus propias publicaciones desde su perfil.
+Acceso: Desde el perfil del autor.
 
-Botón Editar junto a Ver y Eliminar.
+Flujo: “Editar” junto a “Ver” y “Eliminar”; redirige a /articulo/<id>/editar/ con formulario precargado.
 
-Redirige a /articulo/<id>/editar/ con formulario idéntico al de creación, precargado con los datos.
+Feedback: Mensajes visuales premium.
 
-Feedback visual con mensajes premium.
-
-6. Funcionalidades Admin (nuevo)
+6. Funcionalidades admin
 Usuarios:
 
-Ver todos los usuarios registrados.
-
-Eliminar usuarios desde la lista.
+Listado global: Ver y eliminar usuarios.
 
 Publicaciones:
 
-Ver todas las publicaciones de todos los usuarios.
+Listado global: Ver y eliminar publicaciones.
 
-Eliminar publicaciones desde la lista.
+Perfil admin:
 
-Perfil Admin:
-
-Links visibles solo para admin:
-
-“Ver todos los usuarios”.
-
-“Ver todas las publicaciones”.
+Links exclusivos: “Ver todos los usuarios”, “Ver todas las publicaciones”.
 
 7. Footer (próximamente)
-Rediseño con más enlaces y redes sociales.
+Rediseño: Más enlaces y redes sociales.
 
-Inclusión de formulario para suscripción a newsletter.
+Newsletter: Formulario de suscripción.
 
-Inclusión de créditos y contacto.
+Créditos y contacto: Inclusión destacada.
 
-8. Próximamente
-Sistema de mensajería: usuarios podrán interactuar entre sí por medio de la web.
+8. Sistema de mensajería entre usuarios
+Modelo:
+
+Mensaje:
+
+Campos: remitente, destinatario, contenido, fecha_envio, leido.
+
+Relaciones: Usa settings.AUTH_USER_MODEL para compatibilidad con CustomUser.
+
+Bandeja de entrada (conversaciones únicas):
+
+Vista: Muestra una tarjeta por chat (último mensaje) entre el usuario y cada contacto.
+
+Lectura: Al entrar, marca como leídos los mensajes no leídos del usuario, reseteando el contador del navbar.
+
+Navegación: Click en tarjeta → detalle_mensaje con el otro usuario (nunca abre chat consigo mismo).
+
+Chat (detalle_mensaje):
+
+Vista: Conversación completa entre dos usuarios (remitente/destinatario), ordenada por fecha.
+
+Marcado: Al abrir, marca como leídos los mensajes del otro usuario hacia el actual.
+
+Envío inline: Form para enviar mensajes dentro del chat, sin redirigir a formularios externos.
+
+Header premium: Avatar + nombre del contacto; opcionalmente clickeable hacia su perfil.
+
+Botón “Enviar mensaje” en perfil de usuario:
+
+Condición: Visible si el usuario autenticado no es el mismo perfil.
+
+Acción: Redirige a detalle_mensaje con el usuario de ese perfil.
+
+Navbar (badge de notificaciones):
+
+Contador: Muestra badge con cantidad de mensajes no leídos sobre el nombre del usuario.
+
+Cálculo: Se obtiene en la vista o via context processor; no se realizan .filter(...) con argumentos en el template.
+
+Reset: El badge desaparece al entrar a la bandeja (mensajes marcados como leídos).
+
+Exclusiones:
+
+Admins: Excluidos como destinatarios en envío de mensajes; no aparecen en resultados AJAX.
+
+Rutas:
+
+Bandeja: /mensajes/ → lista de chats (últimos mensajes).
+
+Chat: /mensajes/<user_id>/ → conversación con el usuario dado.
+
+Plantillas premium:
+
+Bandeja: Tarjetas con avatar, nombre, último mensaje, fecha y estado no leído.
+
+Chat: Burbujas enviadas y recibidas, scroll, form de envío inline; header con avatar+nombre.
+
+Comportamiento del link en bandeja:
+
+Si el último lo enviaste vos: Link a chat con destinatario.
+
+Si lo recibiste: Link a chat con remitente.
+
+Opt-in realtime (futuro):
+
+Canales/WebSockets: Posibilidad de notificaciones instantáneas y actualización de chat en vivo.
+
+9. Próximamente
+Sistema de mensajería (extensiones):
+
+Realtime: Notificaciones y chat en tiempo real.
+
+Estados de entrega/lectura por mensaje.
+

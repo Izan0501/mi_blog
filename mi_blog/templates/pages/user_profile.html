@@ -14,6 +14,13 @@
         </div>
         <div class="profile-info">
             <h1 class="profile-name">{{ usuario.username }}</h1>
+
+            <!-- ✅ Botón para abrir el chat con este usuario -->
+            {% if request.user.is_authenticated and request.user != usuario %}
+                <a href="{% url 'detalle_mensaje' usuario.id %}" class="btn-primary">
+                    💬 Enviar mensaje
+                </a>
+            {% endif %}
         </div>
     </header>
 

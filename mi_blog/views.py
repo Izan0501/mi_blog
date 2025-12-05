@@ -2,8 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.db.models.functions import Coalesce
-from django.db.models import Count, OuterRef, Subquery
-from .forms import MensajeForm
+from django.db.models import Count, OuterRef, Subquery, Q
 from .models import Mensaje
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import CustomUserCreationForm, CustomAuthenticationForm, ArticuloForm, ComentarioForm
@@ -15,6 +14,11 @@ User = get_user_model()
 # Pagina inicio
 @login_required
 def home(request):
+    unread_count = 0
+    if request.user.is_authenticated:
+        unread_count = Mensaje.objects.filter(destinatario=request.user, leido=False).count()
+    
+    
     # Filtrado de articulos por categoría
     try:
         categoria_id = int(request.GET.get('categoria'))
@@ -63,6 +67,7 @@ def home(request):
     comentarios_recientes = Comentario.objects.filter(aprobado=True).order_by('-fecha_creacion')[:5]
     
     return render(request, 'pages/home.html', {
+        'unread_count': unread_count,
         'articulos': articulos_filtrados.order_by('-fecha_creacion') if articulos_filtrados else articulos_generales.order_by('-fecha_creacion'),
         'articulos_filtrados': articulos_filtrados.order_by('-fecha_creacion') if articulos_filtrados else None,
         'articulos_generales': articulos_generales.order_by('-fecha_creacion'),
@@ -337,27 +342,63 @@ def eliminar_publicacion_admin(request, articulo_id):
 # messages views start
 @login_required
 def bandeja_entrada(request):
-    mensajes = Mensaje.objects.filter(destinatario=request.user).order_by('-fecha_envio')
-    return render(request, 'mensajes/bandeja_entrada.html', {'mensajes': mensajes})
+    # Traer todos los usuarios con los que el usuario actual tiene mensajes
+    conversaciones = (
+        Mensaje.objects.filter(Q(remitente=request.user) | Q(destinatario=request.user))
+        .values('remitente', 'destinatario')
+    )
+
+    # Obtener IDs únicos de usuarios con los que conversó
+    usuarios_ids = set()
+    for c in conversaciones:
+        if c['remitente'] != request.user.id:
+            usuarios_ids.add(c['remitente'])
+        if c['destinatario'] != request.user.id:
+            usuarios_ids.add(c['destinatario'])
+
+    # Para cada usuario, obtener el último mensaje de la conversación
+    chats = []
+    for uid in usuarios_ids:
+        ultimo = (
+            Mensaje.objects.filter(
+                Q(remitente=request.user, destinatario_id=uid) |
+                Q(remitente_id=uid, destinatario=request.user)
+            )
+            .order_by('-fecha_envio')
+            .first()
+        )
+        if ultimo:
+            chats.append(ultimo)
+
+    return render(request, 'mensajes/bandeja_entrada.html', {'chats': chats})
 
 @login_required
-def enviar_mensaje(request):
-    # Excluir admins y al propio usuario
-    usuarios = User.objects.exclude(rol="admin").exclude(id=request.user.id)
+def detalle_mensaje(request, user_id):
+    otro_usuario = get_object_or_404(User, id=user_id)
+
+    # Traer la conversación entre ambos
+    mensajes = Mensaje.objects.filter(
+        (Q(remitente=request.user, destinatario=otro_usuario) |
+         Q(remitente=otro_usuario, destinatario=request.user))
+    ).order_by('fecha_envio')
+
+    # Marcar como leídos los mensajes recibidos
+    Mensaje.objects.filter(destinatario=request.user, remitente=otro_usuario, leido=False).update(leido=True)
 
     if request.method == 'POST':
-        form = MensajeForm(request.POST)
-        form.fields['destinatario'].queryset = usuarios
-        if form.is_valid():
-            mensaje = form.save(commit=False)
-            mensaje.remitente = request.user
-            mensaje.save()
-            messages.success(request, "Mensaje enviado con éxito ✨")
-            return redirect('bandeja_entrada')
-    else:
-        form = MensajeForm()
-        form.fields['destinatario'].queryset = usuarios
+        contenido = request.POST.get('contenido')
+        if contenido:
+            Mensaje.objects.create(
+                remitente=request.user,
+                destinatario=otro_usuario,
+                contenido=contenido
+            )
+            return redirect('detalle_mensaje', user_id=otro_usuario.id)
 
-    return render(request, 'mensajes/enviar_mensaje.html', {'form': form})
+    return render(request, 'mensajes/detalle_mensaje.html', {
+        'mensajes': mensajes,
+        'otro_usuario': otro_usuario
+    })
+
 
 # messages views end

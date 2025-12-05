@@ -1,0 +1,31 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+{% block content %}
+<section class="chat-wrapper">
+  <div class="chat-header">
+    <div class="chat-user">
+        {% if otro_usuario.imagen_perfil %}
+            <img src="{{ otro_usuario.imagen_perfil.url }}" alt="Avatar" class="chat-avatar">
+        {% else %}
+            <img src="{% static 'images/default-profile.png' %}" alt="Avatar" class="chat-avatar">
+        {% endif %}
+        <span class="chat-username">{{ otro_usuario.username }}</span>
+    </div>
+</div>
+
+  <div class="chat-messages">
+    {% for mensaje in mensajes %}
+      <div class="chat-message {% if mensaje.remitente == user %}sent{% else %}received{% endif %}">
+        <p>{{ mensaje.contenido }}</p>
+        <span class="chat-fecha">{{ mensaje.fecha_envio|date:"d/m/Y H:i" }}</span>
+      </div>
+    {% endfor %}
+  </div>
+
+  <form method="post" class="chat-form">
+    {% csrf_token %}
+    <textarea name="contenido" rows="2" placeholder="Escribe tu mensaje..." required></textarea>
+    <button type="submit" class="btn-primary">Enviar</button>
+  </form>
+</section>
+{% endblock %}

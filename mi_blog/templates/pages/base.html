@@ -43,15 +43,21 @@
                 </li>
                 <li><a href="{% url 'home' %}">Home</a></li>
                 <li><a href="{% url 'create_publication' %}#publicar">Publicar</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
                 {% if user.is_authenticated %}
-                <li>
+                <li class="nav-user-wrapper">
                     <a href="{% url 'profile' %}" class="nav-user">
                         {% if user.imagen_perfil %}
                         <img src="{{ user.imagen_perfil.url }}" alt="Perfil" class="nav-avatar">
                         {% else %}
                         <img src="{% static 'images/default-profile.png' %}" alt="Perfil" class="nav-avatar">
                         {% endif %}
-                        <span>{{ user.username }}</span>
+                        <span class="nav-username">
+                            {{ user.username }}
+                            {% if unread_count > 0 %}
+                            <span class="badge">{{ unread_count }}</span>
+                            {% endif %}
+                        </span>
                     </a>
                 </li>
                 {% else %}

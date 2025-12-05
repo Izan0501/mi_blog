@@ -82,6 +82,10 @@
   border: 2px solid rgba(255,255,255,0.3);
 }
 
+#id_destinatario {
+  color: black;
+}
+
 .mensaje-username {
   font-weight: 600;
   color: var(--text-white);
@@ -178,3 +182,108 @@
   transform: translateY(-2px);
 }
 
+/* Chat Styles */
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.chat-user {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255,255,255,0.08);
+  padding: 0.8rem 1.2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+}
+
+.chat-avatar {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.3);
+}
+
+.chat-username {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-white);
+}
+
+.chat-wrapper {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+}
+
+.chat-header {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.chat-messages {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
+
+.chat-message {
+  margin: 0.5rem 0;
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  max-width: 70%;
+  position: relative;
+}
+
+.chat-message.sent {
+  background: rgba(0,255,150,0.25);
+  margin-left: auto;
+  text-align: right;
+}
+
+.chat-message.received {
+  background: rgba(255,255,255,0.1);
+  margin-right: auto;
+  text-align: left;
+}
+
+.chat-fecha {
+  display: block;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.6);
+  margin-top: 0.3rem;
+}
+
+.chat-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.chat-form textarea {
+  flex: 1;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.08);
+  color: var(--text-white);
+  padding: 0.8rem;
+}
+
+.chat-form button {
+  padding: 0.8rem 1.5rem;
+  border-radius: 12px;
+  background: rgba(0,255,150,0.4);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}

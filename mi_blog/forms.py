@@ -37,15 +37,3 @@ class ComentarioForm(forms.ModelForm):
         labels = {
             'contenido': ''
         }
-        
-class MensajeForm(forms.ModelForm):
-    class Meta:
-        model = Mensaje
-        fields = ['destinatario', 'contenido']
-        widgets = {
-            'contenido': forms.Textarea(attrs={
-                'placeholder': 'Escribe tu mensaje...',
-                'rows': 3,
-                'class': 'mensaje-input'
-            })
-        }
